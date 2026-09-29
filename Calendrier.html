@@ -1,0 +1,5553 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Mon Planning</title>
+
+
+    <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Arial,
+                sans-serif;
+
+            background: #f6f6fb;
+
+            color: #20205c;
+
+        }
+
+
+        button,
+        input,
+        select {
+
+            font-family: inherit;
+
+        }
+
+
+        button {
+
+            cursor: pointer;
+
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        header {
+
+            height: 72px;
+
+            background: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 35px;
+
+            border-bottom:
+                1px solid #e8e7f0;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 50;
+
+        }
+
+
+        .logo {
+
+            font-size: 24px;
+
+            font-weight: 700;
+
+            color: #40379b;
+
+        }
+
+
+        .settings-button {
+
+            background: #f0effc;
+
+            color: #40379b;
+
+            border: none;
+
+            border-radius: 9px;
+
+            padding: 10px 15px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition: .15s;
+
+        }
+
+
+        .settings-button:hover {
+
+            background: #e5e3fa;
+
+        }
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        main {
+
+            max-width: 1450px;
+
+            margin: auto;
+
+            padding: 35px;
+
+        }
+
+
+        .page-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-end;
+
+            margin-bottom: 25px;
+
+            gap: 20px;
+
+        }
+
+
+        .page-title h1 {
+
+            margin: 0;
+
+            font-size: 34px;
+
+            color: #20205c;
+
+        }
+
+
+        .page-title p {
+
+            margin: 7px 0 0;
+
+            color: #7c7c89;
+
+            font-size: 15px;
+
+        }
+
+
+        .stats {
+
+            background: #ecebfc;
+
+            color: #40379b;
+
+            padding: 12px 18px;
+
+            border-radius: 10px;
+
+            font-weight: 600;
+
+            white-space: nowrap;
+
+        }
+
+
+        /* =====================================================
+           TRACKING DASHBOARD
+        ===================================================== */
+
+        .tracking-dashboard {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 16px;
+
+            margin-bottom: 28px;
+
+        }
+
+
+        .tracking-card {
+
+            background: white;
+
+            border-radius: 13px;
+
+            padding: 18px 20px;
+
+            border:
+                1px solid #e7e6ef;
+
+            box-shadow:
+                0 3px 12px
+                rgba(30, 30, 80, .05);
+
+        }
+
+
+        .tracking-title {
+
+            font-size: 13px;
+
+            color: #888894;
+
+            font-weight: 600;
+
+            margin-bottom: 7px;
+
+        }
+
+
+        .tracking-number {
+
+            font-size: 27px;
+
+            font-weight: 750;
+
+            color: #40379b;
+
+        }
+
+
+        .tracking-remaining {
+
+            margin-top: 5px;
+
+            font-size: 12px;
+
+            color: #888894;
+
+        }
+
+
+        .tracking-progress {
+
+            height: 5px;
+
+            background: #eeeeF6;
+
+            border-radius: 10px;
+
+            margin-top: 12px;
+
+            overflow: hidden;
+
+        }
+
+
+        .tracking-progress-bar {
+
+            height: 100%;
+
+            background: #4b40a6;
+
+            border-radius: 10px;
+
+            transition: width .25s;
+
+        }
+
+
+        /* =====================================================
+           CALENDAR
+        ===================================================== */
+
+        .months {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, minmax(300px, 1fr));
+
+            gap: 24px;
+
+        }
+
+
+        .month {
+
+            background: white;
+
+            border-radius: 14px;
+
+            padding: 18px;
+
+            box-shadow:
+                0 3px 12px
+                rgba(30, 30, 80, .06);
+
+            border:
+                1px solid #e8e7ef;
+
+        }
+
+
+        .month-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .month-header h2 {
+
+            margin: 0;
+
+            font-size: 19px;
+
+            color: #40379b;
+
+        }
+
+
+        .month-header span {
+
+            font-size: 18px;
+
+        }
+
+
+        .weekdays {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(7, 1fr);
+
+            gap: 3px;
+
+            margin-bottom: 4px;
+
+        }
+
+
+        .weekday {
+
+            text-align: center;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            color: #8a8a96;
+
+            padding: 5px 0;
+
+        }
+
+
+        .weekday:first-child,
+        .weekday:last-child {
+
+            color: #d34b4b;
+
+        }
+
+
+        .days {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(7, 1fr);
+
+            gap: 3px;
+
+        }
+
+
+        .day {
+
+            min-height: 105px;
+
+            border:
+                1px solid #ededf2;
+
+            border-radius: 7px;
+
+            padding: 6px;
+
+            background: #fff;
+
+            cursor: pointer;
+
+            position: relative;
+
+            overflow: hidden;
+
+            transition: .15s;
+
+        }
+
+
+        .day:hover {
+
+            border-color: #7469c4;
+
+            background: #fcfcff;
+
+        }
+
+
+        .day.empty {
+
+            border: none;
+
+            background: transparent;
+
+            cursor: default;
+
+        }
+
+
+        .day.outside {
+
+            background: #f4f4f6;
+
+            color: #b7b7be;
+
+            cursor: default;
+
+        }
+
+
+        .day-number {
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            margin-bottom: 4px;
+
+        }
+
+
+        /* =====================================================
+           COMPLETED DAY
+        ===================================================== */
+
+        .day.completed-day {
+
+            background: #eeeefd;
+
+            border:
+                2px solid #4b40a6;
+
+        }
+
+
+        .day.completed-day::after {
+
+            content: "✓";
+
+            position: absolute;
+
+            top: 5px;
+
+            right: 6px;
+
+            width: 20px;
+
+            height: 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #4b40a6;
+
+            color: white;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+        }
+
+
+        .day.completed-day .day-number {
+
+            color: #4b40a6;
+
+        }
+
+
+        /* =====================================================
+           HOLIDAY
+        ===================================================== */
+
+        .day.holiday {
+
+            background: #fff8f8;
+
+            border-color: #f0cccc;
+
+            cursor: not-allowed;
+
+        }
+
+
+        .holiday-label {
+
+            font-size: 9px;
+
+            color: #d94b4b;
+
+            font-weight: 700;
+
+            margin-bottom: 4px;
+
+        }
+
+
+        /* =====================================================
+           TASK LINES
+        ===================================================== */
+
+        .task-line {
+
+            width: 100%;
+
+            height: 18px;
+
+            margin-top: 3px;
+
+            border-radius: 4px;
+
+            padding: 2px 5px;
+
+            font-size: 9px;
+
+            color: white;
+
+            font-weight: 600;
+
+            overflow: hidden;
+
+            white-space: nowrap;
+
+            text-overflow: ellipsis;
+
+            border-left:
+                3px solid
+                rgba(0,0,0,.18);
+
+        }
+
+
+        /* =====================================================
+           MODALS
+        ===================================================== */
+
+        .overlay {
+
+            position: fixed;
+
+            inset: 0;
+
+            background:
+                rgba(25, 25, 60, .32);
+
+            display: none;
+
+            align-items: center;
+
+            justify-content: center;
+
+            z-index: 100;
+
+            padding: 20px;
+
+        }
+
+
+        .overlay.open {
+
+            display: flex;
+
+        }
+
+
+        .modal {
+
+            width:
+                min(620px, 92vw);
+
+            max-height: 88vh;
+
+            overflow-y: auto;
+
+            background: white;
+
+            border-radius: 16px;
+
+            padding: 25px;
+
+            box-shadow:
+                0 20px 60px
+                rgba(0,0,0,.2);
+
+        }
+
+
+        .modal-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 22px;
+
+        }
+
+
+        .modal-header h2 {
+
+            margin: 0;
+
+            color: #40379b;
+
+            font-size: 21px;
+
+        }
+
+
+        .close {
+
+            width: 34px;
+
+            height: 34px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: #efeffa;
+
+            color: #40379b;
+
+            font-size: 20px;
+
+        }
+
+
+        /* =====================================================
+           TASK LIST
+        ===================================================== */
+
+        .task-list {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 9px;
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .task-item {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            background: #f7f7fb;
+
+            border-radius: 8px;
+
+            padding: 10px;
+
+            border-left:
+                4px solid #5b50b5;
+
+        }
+
+
+        .task-item input[type="checkbox"] {
+
+            width: 18px;
+
+            height: 18px;
+
+            accent-color: #4b40a6;
+
+        }
+
+
+        .task-name {
+
+            flex: 1;
+
+            font-size: 14px;
+
+        }
+
+
+        .task-item.completed .task-name {
+
+            text-decoration: line-through;
+
+            color: #999;
+
+        }
+
+
+        .task-category {
+
+            font-size: 11px;
+
+            color: #777;
+
+            background: white;
+
+            padding: 4px 7px;
+
+            border-radius: 5px;
+
+        }
+
+
+        .recurring-badge {
+
+            font-size: 10px;
+
+            color: #4b40a6;
+
+            background: #ecebfc;
+
+            padding: 4px 7px;
+
+            border-radius: 5px;
+
+        }
+
+
+        .delete-task {
+
+            background: transparent;
+
+            border: none;
+
+            color: #aaa;
+
+            font-size: 18px;
+
+        }
+
+
+        .delete-task:hover {
+
+            color: #d34b4b;
+
+        }
+
+
+        /* =====================================================
+           ADD TASK
+        ===================================================== */
+
+        .add-task-form {
+
+            background: #f7f7fc;
+
+            border-radius: 10px;
+
+            padding: 15px;
+
+            margin-top: 15px;
+
+        }
+
+
+        .form-group {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 6px;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .form-group label {
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            color: #666;
+
+        }
+
+
+        .form-group input,
+        .form-group select {
+
+            padding: 11px;
+
+            border:
+                1px solid #ddd;
+
+            border-radius: 7px;
+
+            background: white;
+
+            outline: none;
+
+        }
+
+
+        .form-group input:focus,
+        .form-group select:focus {
+
+            border-color: #5b50b5;
+
+        }
+
+
+        /* =====================================================
+           RECURRENCE
+        ===================================================== */
+
+        .recurrence-box {
+
+            background: white;
+
+            border:
+                1px solid #e2e1eb;
+
+            border-radius: 8px;
+
+            padding: 12px;
+
+            margin-top: 8px;
+
+        }
+
+
+        .recurrence-check {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+        }
+
+
+        .recurrence-options {
+
+            display: none;
+
+            margin-top: 12px;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 10px;
+
+        }
+
+
+        .recurrence-options.show {
+
+            display: grid;
+
+        }
+
+
+        .add-button {
+
+            width: 100%;
+
+            border: none;
+
+            background: #4b40a6;
+
+            color: white;
+
+            padding: 12px;
+
+            border-radius: 8px;
+
+            font-weight: 600;
+
+            margin-top: 5px;
+
+        }
+
+
+        .add-button:hover {
+
+            background: #3f3596;
+
+        }
+
+
+        /* =====================================================
+           SETTINGS
+        ===================================================== */
+
+        .settings-description {
+
+            color: #777;
+
+            font-size: 14px;
+
+            margin-bottom: 22px;
+
+            line-height: 1.5;
+
+        }
+
+
+        .settings-section {
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .settings-section h3 {
+
+            margin-bottom: 10px;
+
+        }
+
+
+        /* =====================================================
+           HOLIDAY FORM
+        ===================================================== */
+
+        .holiday-form {
+
+            background: #f7f7fc;
+
+            border-radius: 10px;
+
+            padding: 15px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .form-row {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr auto;
+
+            gap: 10px;
+
+            align-items: end;
+
+        }
+
+
+        .add-holiday {
+
+            height: 40px;
+
+            padding: 0 18px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: #4b40a6;
+
+            color: white;
+
+            font-weight: 600;
+
+        }
+
+
+        /* =====================================================
+           HOLIDAY LIST
+        ===================================================== */
+
+        .holiday-list {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 9px;
+
+        }
+
+
+        .holiday-item {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            border:
+                1px solid #e5e5ed;
+
+            border-radius: 9px;
+
+            padding: 13px 15px;
+
+            background: white;
+
+        }
+
+
+        .holiday-info {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+        }
+
+
+        .holiday-dates {
+
+            font-weight: 600;
+
+            font-size: 14px;
+
+        }
+
+
+        .holiday-duration {
+
+            font-size: 12px;
+
+            color: #999;
+
+            margin-top: 3px;
+
+        }
+
+
+        .holiday-actions {
+
+            display: flex;
+
+            gap: 5px;
+
+        }
+
+
+        .small-button {
+
+            border: none;
+
+            border-radius: 6px;
+
+            padding: 7px 10px;
+
+            font-size: 12px;
+
+        }
+
+
+        .edit-button {
+
+            background: #eeeefe;
+
+            color: #4b40a6;
+
+        }
+
+
+        .delete-button {
+
+            background: #fff0f0;
+
+            color: #d34b4b;
+
+        }
+
+
+        /* =====================================================
+           CATEGORIES
+        ===================================================== */
+
+        .category-list {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 8px;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .category-item {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 10px 12px;
+
+            background: #f8f8fc;
+
+            border-radius: 8px;
+
+        }
+
+
+        .category-left {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+        }
+
+
+        .category-color {
+
+            width: 18px;
+
+            height: 18px;
+
+            border-radius: 5px;
+
+        }
+
+
+        .category-name {
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+        }
+
+
+        .category-form {
+
+            display: flex;
+
+            gap: 8px;
+
+        }
+
+
+        .category-form input[type="text"] {
+
+            flex: 1;
+
+            padding: 10px;
+
+            border:
+                1px solid #ddd;
+
+            border-radius: 7px;
+
+        }
+
+
+        .category-form input[type="color"] {
+
+            width: 45px;
+
+            padding: 2px;
+
+            border:
+                1px solid #ddd;
+
+            border-radius: 7px;
+
+            background: white;
+
+        }
+
+
+        .category-form button {
+
+            border: none;
+
+            background: #4b40a6;
+
+            color: white;
+
+            border-radius: 7px;
+
+            padding: 0 15px;
+
+        }
+
+
+        /* =====================================================
+           EMPTY
+        ===================================================== */
+
+        .empty {
+
+            text-align: center;
+
+            padding: 25px;
+
+            color: #999;
+
+            background: #fafafd;
+
+            border-radius: 9px;
+
+        }
+
+
+        /* =====================================================
+           DAY COMPLETION
+        ===================================================== */
+
+        .day-completion {
+            margin-bottom: 20px;
+            padding: 14px 16px;
+            background: #f5f4fc;
+            border-radius: 10px;
+            border: 1px solid #e4e2f2;
+        }
+
+        .completion-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #40379b;
+            cursor: pointer;
+        }
+
+        .completion-label input {
+            width: 19px;
+            height: 19px;
+            accent-color: #4b40a6;
+            cursor: pointer;
+        }
+
+        .completion-label input:disabled {
+            cursor: not-allowed;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media(max-width: 1100px) {
+
+            .months {
+
+                grid-template-columns:
+                    repeat(
+                        2,
+                        minmax(300px, 1fr)
+                    );
+
+            }
+
+        }
+
+
+        @media(max-width: 700px) {
+
+            header {
+
+                padding: 0 18px;
+
+            }
+
+
+            main {
+
+                padding: 20px;
+
+            }
+
+
+            .months {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .tracking-dashboard {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .form-row {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .page-header {
+
+                align-items: flex-start;
+
+                gap: 15px;
+
+                flex-direction: column;
+
+            }
+
+
+            .category-form {
+
+                flex-wrap: wrap;
+
+            }
+
+
+            .category-form input[type="text"] {
+
+                width: 100%;
+
+                flex: none;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+    <div class="logo">
+
+        📅 Mon Planning
+
+    </div>
+
+
+    <button
+        class="settings-button"
+        onclick="openSettings()"
+    >
+
+        ⚙️ Paramètres
+
+    </button>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main>
+
+
+    <!-- PAGE HEADER -->
+
+    <div class="page-header">
+
+        <div class="page-title">
+
+            <h1>
+                Mon planning
+            </h1>
+
+            <p>
+                Du 1er septembre 2026 au 10 février 2027
+            </p>
+
+        </div>
+
+
+        <div
+            id="stats"
+            class="stats"
+        >
+
+            0 tâche
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         TRACKING
+    ================================================== -->
+
+    <div class="tracking-dashboard">
+
+
+        <!-- JOURS -->
+
+        <div class="tracking-card">
+
+            <div class="tracking-title">
+
+                📅 Jours
+
+            </div>
+
+
+            <div
+                id="daysProgress"
+                class="tracking-number"
+            >
+
+                0 / 0
+
+            </div>
+
+
+            <div
+                id="daysRemaining"
+                class="tracking-remaining"
+            >
+
+                0 jour restant
+
+            </div>
+
+
+            <div class="tracking-progress">
+
+                <div
+                    id="daysBar"
+                    class="tracking-progress-bar"
+                    style="width:0%"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- SEMAINES -->
+
+        <div class="tracking-card">
+
+            <div class="tracking-title">
+
+                📆 Semaines
+
+            </div>
+
+
+            <div
+                id="weeksProgress"
+                class="tracking-number"
+            >
+
+                0 / 0
+
+            </div>
+
+
+            <div
+                id="weeksRemaining"
+                class="tracking-remaining"
+            >
+
+                0 semaine restante
+
+            </div>
+
+
+            <div class="tracking-progress">
+
+                <div
+                    id="weeksBar"
+                    class="tracking-progress-bar"
+                    style="width:0%"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- MOIS -->
+
+        <div class="tracking-card">
+
+            <div class="tracking-title">
+
+                🗓️ Mois
+
+            </div>
+
+
+            <div
+                id="monthsProgress"
+                class="tracking-number"
+            >
+
+                0 / 0
+
+            </div>
+
+
+            <div
+                id="monthsRemaining"
+                class="tracking-remaining"
+            >
+
+                0 mois restant
+
+            </div>
+
+
+            <div class="tracking-progress">
+
+                <div
+                    id="monthsBar"
+                    class="tracking-progress-bar"
+                    style="width:0%"
+                ></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         CALENDAR
+    ================================================== -->
+
+    <div
+        id="calendar"
+        class="months"
+    ></div>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     TASK MODAL
+===================================================== -->
+
+<div
+    id="taskOverlay"
+    class="overlay"
+>
+
+    <div class="modal">
+
+
+        <div class="modal-header">
+
+            <h2 id="selectedDateTitle">
+                Journée
+            </h2>
+
+
+            <button
+                class="close"
+                onclick="closeTaskModal()"
+            >
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <div
+            id="dayCompletion"
+            class="day-completion"
+        ></div>
+
+
+        <div
+            id="taskList"
+            class="task-list"
+        ></div>
+
+
+
+        <!-- ADD TASK -->
+
+        <div
+            id="addTaskForm"
+            class="add-task-form"
+        >
+
+
+            <div class="form-group">
+
+                <label>
+                    Tâche
+                </label>
+
+
+                <input
+                    id="taskInput"
+                    type="text"
+                    placeholder="Ex : Réunion avec l'équipe"
+                >
+
+            </div>
+
+
+
+            <!-- CATEGORY -->
+
+            <div class="form-group">
+
+                <label>
+                    Catégorie
+                </label>
+
+
+                <select
+                    id="categorySelect"
+                ></select>
+
+            </div>
+
+
+
+            <!-- RECURRENCE -->
+
+            <div class="recurrence-box">
+
+
+                <label
+                    class="recurrence-check"
+                >
+
+                    <input
+                        type="checkbox"
+                        id="recurringCheckbox"
+                        onchange="toggleRecurrence()"
+                    >
+
+
+                    🔁 Tâche récurrente
+
+                </label>
+
+
+
+                <div
+                    id="recurrenceOptions"
+                    class="recurrence-options"
+                >
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Répétition
+                        </label>
+
+
+                        <select
+                            id="recurrenceFrequency"
+                        >
+
+                            <option value="weekly">
+                                Toutes les semaines
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Jour
+                        </label>
+
+
+                        <select
+                            id="recurrenceDay"
+                        >
+
+                            <option value="0">
+                                Lundi
+                            </option>
+
+                            <option value="1">
+                                Mardi
+                            </option>
+
+                            <option value="2">
+                                Mercredi
+                            </option>
+
+                            <option value="3">
+                                Jeudi
+                            </option>
+
+                            <option value="4">
+                                Vendredi
+                            </option>
+
+                            <option value="5">
+                                Samedi
+                            </option>
+
+                            <option value="6">
+                                Dimanche
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Heure
+                        </label>
+
+
+                        <input
+                            id="recurrenceTime"
+                            type="time"
+                            value="09:00"
+                        >
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <button
+                class="add-button"
+                onclick="addTask()"
+            >
+
+                + Ajouter la tâche
+
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     SETTINGS MODAL
+===================================================== -->
+
+<div
+    id="settingsOverlay"
+    class="overlay"
+>
+
+    <div class="modal">
+
+
+        <div class="modal-header">
+
+            <h2>
+                ⚙️ Paramètres
+            </h2>
+
+
+            <button
+                class="close"
+                onclick="closeSettings()"
+            >
+
+                ×
+
+            </button>
+
+        </div>
+
+
+
+        <!-- =================================================
+             HOLIDAYS
+        ================================================== -->
+
+        <div class="settings-section">
+
+
+            <h3>
+                🎉 Jours fériés
+            </h3>
+
+
+            <p class="settings-description">
+
+                Ajoute des périodes de jours fériés.
+                Une période peut correspondre à un seul
+                jour ou à plusieurs jours.
+
+            </p>
+
+
+
+            <div class="holiday-form">
+
+
+                <div class="form-row">
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Du
+                        </label>
+
+
+                        <input
+                            id="holidayStart"
+                            type="date"
+                            min="2026-09-01"
+                            max="2027-02-10"
+                        >
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Au
+                        </label>
+
+
+                        <input
+                            id="holidayEnd"
+                            type="date"
+                            min="2026-09-01"
+                            max="2027-02-10"
+                        >
+
+                    </div>
+
+
+
+                    <button
+                        id="holidaySaveButton"
+                        class="add-holiday"
+                        onclick="saveHoliday()"
+                    >
+
+                        + Ajouter
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <div
+                id="holidayList"
+                class="holiday-list"
+            ></div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             CATEGORIES
+        ================================================== -->
+
+        <div class="settings-section">
+
+
+            <h3>
+                🎨 Catégories
+            </h3>
+
+
+            <p class="settings-description">
+
+                Chaque catégorie possède sa propre couleur.
+                Cette couleur apparaît sur les tâches du calendrier.
+
+            </p>
+
+
+
+            <div
+                id="categoryList"
+                class="category-list"
+            ></div>
+
+
+
+            <div class="category-form">
+
+
+                <input
+                    id="newCategoryName"
+                    type="text"
+                    placeholder="Nom de la catégorie"
+                >
+
+
+                <input
+                    id="newCategoryColor"
+                    type="color"
+                    value="#5B50B5"
+                >
+
+
+                <button
+                    onclick="addCategory()"
+                >
+
+                    + Ajouter
+
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+
+/* =====================================================
+   PÉRIODE DU PLANNING
+===================================================== */
+
+const START_DATE =
+    new Date("2026-09-01T00:00:00");
+
+
+const END_DATE =
+    new Date("2027-02-10T00:00:00");
+
+
+
+/* =====================================================
+   MOIS AFFICHÉS
+===================================================== */
+
+const months = [
+
+    [2026, 8],
+
+    [2026, 9],
+
+    [2026, 10],
+
+    [2026, 11],
+
+    [2027, 0],
+
+    [2027, 1]
+
+];
+
+
+
+/* =====================================================
+   CATÉGORIES PAR DÉFAUT
+===================================================== */
+
+const defaultCategories = [
+
+    {
+        id: "work",
+
+        name: "Travail",
+
+        color: "#5B50B5"
+
+    },
+
+
+    {
+        id: "meeting",
+
+        name: "Réunion",
+
+        color: "#3F8FBD"
+
+    },
+
+
+    {
+        id: "garden",
+
+        name: "Jardin",
+
+        color: "#55A878"
+
+    },
+
+
+    {
+        id: "admin",
+
+        name: "Administratif",
+
+        color: "#D4933F"
+
+    },
+
+
+    {
+        id: "personal",
+
+        name: "Personnel",
+
+        color: "#D65C76"
+
+    }
+
+];
+
+
+
+/* =====================================================
+   DONNÉES
+===================================================== */
+
+let data = {
+
+    holidays: [],
+
+    categories:
+        defaultCategories,
+
+    tasks: {},
+
+    completedDays: {}
+
+};
+
+
+
+let selectedDate = null;
+
+let editingHoliday = null;
+
+
+
+/* =====================================================
+   CHARGER LES DONNÉES
+===================================================== */
+
+function loadData() {
+
+
+    const saved =
+        localStorage.getItem(
+            "myPlanningDataV3"
+        );
+
+
+    if(saved) {
+
+        try {
+
+            data =
+                JSON.parse(saved);
+
+        }
+
+        catch(error) {
+
+            console.error(
+                "Erreur de chargement",
+                error
+            );
+
+        }
+
+    }
+
+
+    if(!data.categories) {
+
+        data.categories =
+            defaultCategories;
+
+    }
+
+
+    if(!data.holidays) {
+
+        data.holidays = [];
+
+    }
+
+
+    if(!data.tasks) {
+
+        data.tasks = {};
+
+    }
+
+
+    if(!data.completedDays) {
+
+        data.completedDays = {};
+
+    }
+
+}
+
+
+
+/* =====================================================
+   SAUVEGARDER
+===================================================== */
+
+function saveData() {
+
+
+    localStorage.setItem(
+
+        "myPlanningDataV3",
+
+        JSON.stringify(data)
+
+    );
+
+}
+
+
+
+/* =====================================================
+   DATE → KEY
+===================================================== */
+
+function dateKey(date) {
+
+
+    return [
+
+        date.getFullYear(),
+
+        String(
+            date.getMonth() + 1
+        ).padStart(2, "0"),
+
+        String(
+            date.getDate()
+        ).padStart(2, "0")
+
+    ].join("-");
+
+}
+
+
+
+/* =====================================================
+   KEY → DATE
+===================================================== */
+
+function dateFromKey(key) {
+
+
+    return new Date(
+
+        key + "T00:00:00"
+
+    );
+
+}
+
+
+
+/* =====================================================
+   FORMAT DATE
+===================================================== */
+
+function formatDate(date) {
+
+
+    return date.toLocaleDateString(
+
+        "fr-FR",
+
+        {
+
+            weekday: "long",
+
+            day: "numeric",
+
+            month: "long",
+
+            year: "numeric"
+
+        }
+
+    );
+
+}
+
+
+
+/* =====================================================
+   CAPITALISER
+===================================================== */
+
+function capitalize(text) {
+
+
+    return text.charAt(0).toUpperCase()
+        + text.slice(1);
+
+}
+
+
+
+/* =====================================================
+   VÉRIFIER SI DANS LA PÉRIODE
+===================================================== */
+
+function isInPeriod(date) {
+
+
+    return (
+
+        date >= START_DATE &&
+
+        date <= END_DATE
+
+    );
+
+}
+
+
+
+/* =====================================================
+   OBTENIR LES JOURS FÉRIÉS
+===================================================== */
+
+function getHolidayDates() {
+
+
+    const dates =
+        new Set();
+
+
+    data.holidays.forEach(
+
+        holiday => {
+
+
+            let current =
+                dateFromKey(
+                    holiday.start
+                );
+
+
+            const end =
+                dateFromKey(
+                    holiday.end
+                );
+
+
+            while(
+                current <= end
+            ) {
+
+
+                dates.add(
+                    dateKey(current)
+                );
+
+
+                current.setDate(
+
+                    current.getDate() + 1
+
+                );
+
+            }
+
+        }
+
+    );
+
+
+    return dates;
+
+}
+
+
+
+/* =====================================================
+   RENDRE LE CALENDRIER
+===================================================== */
+
+function renderCalendar() {
+
+
+    const container =
+        document.getElementById(
+            "calendar"
+        );
+
+
+    container.innerHTML = "";
+
+
+    months.forEach(
+
+        ([year, month]) => {
+
+
+            container.appendChild(
+
+                createMonth(
+
+                    year,
+
+                    month
+
+                )
+
+            );
+
+        }
+
+    );
+
+
+    updateStats();
+
+    updateTracking();
+
+}
+
+
+
+/* =====================================================
+   CRÉER UN MOIS
+===================================================== */
+
+function createMonth(
+
+    year,
+
+    month
+
+) {
+
+
+    const monthElement =
+        document.createElement(
+            "div"
+        );
+
+
+    monthElement.className =
+        "month";
+
+
+    const first =
+        new Date(
+
+            year,
+
+            month,
+
+            1
+
+        );
+
+
+    const monthName =
+        first.toLocaleDateString(
+
+            "fr-FR",
+
+            {
+
+                month: "long",
+
+                year: "numeric"
+
+            }
+
+        );
+
+
+    monthElement.innerHTML = `
+
+        <div class="month-header">
+
+            <h2>
+
+                ${capitalize(monthName)}
+
+            </h2>
+
+            <span>📅</span>
+
+        </div>
+
+
+        <div class="weekdays">
+
+            <div class="weekday">
+                L
+            </div>
+
+            <div class="weekday">
+                M
+            </div>
+
+            <div class="weekday">
+                M
+            </div>
+
+            <div class="weekday">
+                J
+            </div>
+
+            <div class="weekday">
+                V
+            </div>
+
+            <div class="weekday">
+                S
+            </div>
+
+            <div class="weekday">
+                D
+            </div>
+
+        </div>
+
+    `;
+
+
+    const days =
+        document.createElement(
+            "div"
+        );
+
+
+    days.className =
+        "days";
+
+
+    let firstDay =
+        first.getDay();
+
+
+    firstDay =
+        firstDay === 0
+            ? 6
+            : firstDay - 1;
+
+
+    /* CASES VIDES */
+
+    for(
+
+        let i = 0;
+
+        i < firstDay;
+
+        i++
+
+    ) {
+
+
+        const empty =
+            document.createElement(
+                "div"
+            );
+
+
+        empty.className =
+            "day empty";
+
+
+        days.appendChild(
+            empty
+        );
+
+    }
+
+
+    const totalDays =
+        new Date(
+
+            year,
+
+            month + 1,
+
+            0
+
+        ).getDate();
+
+
+    const holidayDates =
+        getHolidayDates();
+
+
+    /* JOURS */
+
+    for(
+
+        let number = 1;
+
+        number <= totalDays;
+
+        number++
+
+    ) {
+
+
+        const date =
+            new Date(
+
+                year,
+
+                month,
+
+                number
+
+            );
+
+
+        const key =
+            dateKey(date);
+
+
+        const day =
+            document.createElement(
+                "div"
+            );
+
+
+        day.className =
+            "day";
+
+
+        /* HORS PÉRIODE */
+
+        if(
+
+            !isInPeriod(date)
+
+        ) {
+
+            day.classList.add(
+                "outside"
+            );
+
+        }
+
+
+        /* JOUR FÉRIÉ */
+
+        const isHoliday =
+            holidayDates.has(key);
+
+
+        if(isHoliday) {
+
+            day.classList.add(
+                "holiday"
+            );
+
+        }
+
+
+        /* JOUR TERMINÉ */
+
+        if(
+
+            data.completedDays[key]
+
+            &&
+
+            !isHoliday
+
+        ) {
+
+            day.classList.add(
+                "completed-day"
+            );
+
+        }
+
+
+        /* NUMÉRO */
+
+        const numberElement =
+            document.createElement(
+                "div"
+            );
+
+
+        numberElement.className =
+            "day-number";
+
+
+        numberElement.innerText =
+            number;
+
+
+        day.appendChild(
+            numberElement
+        );
+
+
+        /* LABEL FÉRIÉ */
+
+        if(isHoliday) {
+
+
+            const label =
+                document.createElement(
+                    "div"
+                );
+
+
+            label.className =
+                "holiday-label";
+
+
+            label.innerText =
+                "🎉 Férié";
+
+
+            day.appendChild(
+                label
+            );
+
+        }
+
+
+        /* TÂCHES */
+
+        let tasks =
+            data.tasks[key] || [];
+
+
+        /*
+           Aucun affichage des tâches
+           pendant les jours fériés.
+        */
+
+        if(!isHoliday) {
+
+
+            const maxVisible = 4;
+
+
+            tasks
+                .slice(
+                    0,
+                    maxVisible
+                )
+                .forEach(
+
+                    task => {
+
+
+                        const line =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        line.className =
+                            "task-line";
+
+
+                        const category =
+                            data.categories.find(
+
+                                c =>
+
+                                c.id ===
+                                task.categoryId
+
+                            );
+
+
+                        line.style.background =
+
+                            category
+
+                                ? category.color
+
+                                : "#5B50B5";
+
+
+                        line.innerText =
+
+                            task.recurring
+
+                                ? "🔁 " +
+                                  task.text
+
+                                : task.text;
+
+
+                        /*
+                           Empêche le clic de la tâche
+                           de terminer la journée.
+                        */
+
+                        line.onclick =
+
+                            event => {
+
+
+                                event.stopPropagation();
+
+
+                                openDay(key);
+
+                            };
+
+
+                        day.appendChild(
+                            line
+                        );
+
+                    }
+
+                );
+
+
+            if(
+
+                tasks.length >
+                maxVisible
+
+            ) {
+
+
+                const more =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                more.style.fontSize =
+                    "9px";
+
+
+                more.style.color =
+                    "#777";
+
+
+                more.style.marginTop =
+                    "3px";
+
+
+                more.innerText =
+
+                    `+ ${
+                        tasks.length -
+                        maxVisible
+                    } autre(s)`;
+
+
+                day.appendChild(
+                    more
+                );
+
+            }
+
+        }
+
+
+        /* CLIC JOUR */
+
+        if(
+
+            isInPeriod(date)
+
+        ) {
+
+
+            /*
+               Cliquer sur un jour ouvre
+               toujours la page des tâches.
+               La journée est terminée
+               uniquement via la case à cocher.
+            */
+
+            day.onclick =
+
+                () => {
+
+                    openDay(key);
+
+                };
+
+        }
+
+
+        days.appendChild(day);
+
+    }
+
+
+    monthElement.appendChild(
+        days
+    );
+
+
+    return monthElement;
+
+}
+
+
+
+/* =====================================================
+   TERMINER / ANNULER UNE JOURNÉE
+===================================================== */
+
+function toggleCompletedDay(key) {
+
+
+    if(
+
+        getHolidayDates().has(key)
+
+    ) {
+
+        return;
+
+    }
+
+
+    if(
+
+        data.completedDays[key]
+
+    ) {
+
+
+        delete data.completedDays[key];
+
+
+    }
+
+    else {
+
+
+        data.completedDays[key] = true;
+
+    }
+
+
+    saveData();
+
+
+    renderCalendar();
+
+}
+
+
+
+/* =====================================================
+   OUVRIR UNE JOURNÉE
+===================================================== */
+
+function openDay(key) {
+
+
+    selectedDate =
+        key;
+
+
+    const date =
+        dateFromKey(key);
+
+
+    document.getElementById(
+
+        "selectedDateTitle"
+
+    ).innerText =
+
+        capitalize(
+
+            formatDate(date)
+
+        );
+
+
+    /*
+       CASE À COCHER POUR TERMINER LA JOURNÉE
+    */
+
+    const holiday =
+        getHolidayDates().has(key);
+
+    const completed =
+        data.completedDays[key] || false;
+
+    const completion =
+        document.getElementById(
+            "dayCompletion"
+        );
+
+    completion.innerHTML = `
+
+        <label class="completion-label">
+
+            <input
+                type="checkbox"
+                id="dayCompletedCheckbox"
+                ${completed ? "checked" : ""}
+                ${holiday ? "disabled" : ""}
+            >
+
+            <span>Journée terminée</span>
+
+        </label>
+
+    `;
+
+
+    document.getElementById(
+        "dayCompletedCheckbox"
+    ).onchange = function() {
+
+        if(this.checked) {
+
+            data.completedDays[key] = true;
+
+        }
+
+        else {
+
+            delete data.completedDays[key];
+
+        }
+
+        saveData();
+
+        renderCalendar();
+
+        updateTracking();
+
+    };
+
+
+    populateCategories();
+
+
+    renderTaskList();
+
+
+    document.getElementById(
+
+        "taskOverlay"
+
+    ).classList.add(
+        "open"
+    );
+
+
+    setTimeout(
+
+        () => {
+
+
+            const input =
+                document.getElementById(
+                    "taskInput"
+                );
+
+
+            if(input) {
+
+                input.focus();
+
+            }
+
+        },
+
+        100
+
+    );
+
+}
+
+
+
+/* =====================================================
+   FERMER JOURNÉE
+===================================================== */
+
+function closeTaskModal() {
+
+
+    document.getElementById(
+
+        "taskOverlay"
+
+    ).classList.remove(
+        "open"
+    );
+
+}
+
+
+
+/* =====================================================
+   CATÉGORIES DANS LE SELECT
+===================================================== */
+
+function populateCategories() {
+
+
+    const select =
+        document.getElementById(
+
+            "categorySelect"
+
+        );
+
+
+    select.innerHTML = "";
+
+
+    data.categories.forEach(
+
+        category => {
+
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                category.id;
+
+
+            option.textContent =
+                category.name;
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+
+    );
+
+}
+
+
+
+/* =====================================================
+   RECURRENCE ON/OFF
+===================================================== */
+
+function toggleRecurrence() {
+
+
+    const checked =
+        document.getElementById(
+
+            "recurringCheckbox"
+
+        ).checked;
+
+
+    const options =
+        document.getElementById(
+
+            "recurrenceOptions"
+
+        );
+
+
+    if(checked) {
+
+
+        options.classList.add(
+            "show"
+        );
+
+
+    }
+
+    else {
+
+
+        options.classList.remove(
+            "show"
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   AJOUTER UNE TÂCHE
+===================================================== */
+
+function addTask() {
+
+
+    const input =
+        document.getElementById(
+
+            "taskInput"
+
+        );
+
+
+    const text =
+        input.value.trim();
+
+
+    if(!text) {
+
+
+        alert(
+            "Écris d'abord une tâche."
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+       Vérification jour férié
+    */
+
+    if(
+
+        getHolidayDates().has(
+            selectedDate
+        )
+
+    ) {
+
+
+        alert(
+
+            "Ce jour est férié. " +
+            "Aucune tâche ne peut être ajoutée."
+
+        );
+
+
+        return;
+
+    }
+
+
+    const categoryId =
+        document.getElementById(
+
+            "categorySelect"
+
+        ).value;
+
+
+    const recurring =
+        document.getElementById(
+
+            "recurringCheckbox"
+
+        ).checked;
+
+
+    /*
+       TÂCHE NORMALE
+    */
+
+    if(!recurring) {
+
+
+        addSingleTask(
+
+            selectedDate,
+
+            text,
+
+            categoryId,
+
+            false
+
+        );
+
+    }
+
+
+    /*
+       TÂCHE RÉCURRENTE
+    */
+
+    else {
+
+
+        const day =
+            parseInt(
+
+                document.getElementById(
+
+                    "recurrenceDay"
+
+                ).value
+
+            );
+
+
+        const time =
+            document.getElementById(
+
+                "recurrenceTime"
+
+            ).value;
+
+
+        createRecurringTask(
+
+            text,
+
+            categoryId,
+
+            day,
+
+            time
+
+        );
+
+    }
+
+
+    input.value = "";
+
+
+    document.getElementById(
+
+        "recurringCheckbox"
+
+    ).checked = false;
+
+
+    toggleRecurrence();
+
+
+    saveData();
+
+
+    renderTaskList();
+
+
+    renderCalendar();
+
+}
+
+
+
+/* =====================================================
+   AJOUTER TÂCHE NORMALE
+===================================================== */
+
+function addSingleTask(
+
+    date,
+
+    text,
+
+    categoryId,
+
+    recurring
+
+) {
+
+
+    if(
+
+        getHolidayDates().has(date)
+
+    ) {
+
+        return;
+
+    }
+
+
+    if(!data.tasks[date]) {
+
+        data.tasks[date] = [];
+
+    }
+
+
+    data.tasks[date].push({
+
+        text: text,
+
+        categoryId: categoryId,
+
+        completed: false,
+
+        recurring: recurring
+
+    });
+
+}
+
+
+
+/* =====================================================
+   TÂCHE RÉCURRENTE
+===================================================== */
+
+function createRecurringTask(
+
+    text,
+
+    categoryId,
+
+    weekday,
+
+    time
+
+) {
+
+
+    let current =
+        new Date(
+            START_DATE
+        );
+
+
+    /*
+       JavaScript :
+
+       Dimanche = 0
+       Lundi = 1
+       Mardi = 2
+       etc.
+
+       Notre select :
+
+       Lundi = 0
+       Mardi = 1
+       etc.
+
+       On convertit.
+    */
+
+    const targetJSWeekday =
+        weekday === 6
+            ? 0
+            : weekday + 1;
+
+
+    const currentWeekday =
+        current.getDay();
+
+
+    let difference =
+        targetJSWeekday -
+        currentWeekday;
+
+
+    if(difference < 0) {
+
+        difference += 7;
+
+    }
+
+
+    current.setDate(
+
+        current.getDate() +
+        difference
+
+    );
+
+
+    const holidayDates =
+        getHolidayDates();
+
+
+    while(
+
+        current <= END_DATE
+
+    ) {
+
+
+        const key =
+            dateKey(current);
+
+
+        /*
+           Jour férié :
+           on ne crée PAS la tâche.
+        */
+
+        if(
+
+            !holidayDates.has(key)
+
+        ) {
+
+
+            if(!data.tasks[key]) {
+
+                data.tasks[key] = [];
+
+            }
+
+
+            /*
+               Éviter de créer exactement
+               deux fois la même tâche.
+            */
+
+            const alreadyExists =
+                data.tasks[key].some(
+
+                    task =>
+
+                        task.text === text &&
+
+                        task.categoryId ===
+                        categoryId &&
+
+                        task.recurring === true &&
+
+                        task.recurrenceTime ===
+                        time
+
+                );
+
+
+            if(!alreadyExists) {
+
+
+                data.tasks[key].push({
+
+                    text: text,
+
+                    categoryId:
+                        categoryId,
+
+                    completed: false,
+
+                    recurring: true,
+
+                    recurrenceTime:
+                        time
+
+                });
+
+            }
+
+        }
+
+
+        current.setDate(
+
+            current.getDate() + 7
+
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   AFFICHER LES TÂCHES
+===================================================== */
+
+function renderTaskList() {
+
+
+    const container =
+        document.getElementById(
+
+            "taskList"
+
+        );
+
+
+    const addForm =
+        document.getElementById(
+
+            "addTaskForm"
+
+        );
+
+
+    let tasks =
+        data.tasks[selectedDate] || [];
+
+
+    const holiday =
+        getHolidayDates().has(
+            selectedDate
+        );
+
+
+    container.innerHTML = "";
+
+
+    /*
+       JOUR FÉRIÉ
+    */
+
+    if(holiday) {
+
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                🎉 Cette journée est fériée.
+
+                <br><br>
+
+                Aucune tâche n'est disponible
+                pour cette journée.
+
+            </div>
+
+        `;
+
+
+        addForm.style.display =
+            "none";
+
+
+        return;
+
+    }
+
+
+    addForm.style.display =
+        "block";
+
+
+    /*
+       PAS DE TÂCHE
+    */
+
+    if(tasks.length === 0) {
+
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                Aucune tâche pour cette journée.
+
+            </div>
+
+        `;
+
+
+        return;
+
+    }
+
+
+    /*
+       TÂCHES
+    */
+
+    tasks.forEach(
+
+        (task, index) => {
+
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "task-item";
+
+
+            if(task.completed) {
+
+                item.classList.add(
+                    "completed"
+                );
+
+            }
+
+
+            const category =
+                data.categories.find(
+
+                    c =>
+
+                    c.id ===
+                    task.categoryId
+
+                );
+
+
+            item.style.borderLeftColor =
+
+                category
+
+                    ? category.color
+
+                    : "#5B50B5";
+
+
+            item.innerHTML = `
+
+                <input
+                    type="checkbox"
+                    ${
+                        task.completed
+                            ? "checked"
+                            : ""
+                    }
+                >
+
+
+                <span class="task-name">
+
+                    ${escapeHTML(
+                        task.text
+                    )}
+
+                </span>
+
+
+                ${
+                    category
+                        ?
+
+                    `
+
+                    <span
+                        class="task-category"
+                    >
+
+                        ${escapeHTML(
+                            category.name
+                        )}
+
+                    </span>
+
+                    `
+
+                        :
+
+                    ""
+
+                }
+
+
+                ${
+                    task.recurring
+
+                        ?
+
+                    `
+
+                    <span
+                        class="recurring-badge"
+                    >
+
+                        🔁
+
+                    </span>
+
+                    `
+
+                        :
+
+                    ""
+
+                }
+
+
+                <button
+                    class="delete-task"
+                >
+
+                    ×
+
+                </button>
+
+            `;
+
+
+            /*
+               CHECKBOX TÂCHE
+            */
+
+            const checkbox =
+                item.querySelector(
+                    "input"
+                );
+
+
+            checkbox.onchange =
+
+                () => {
+
+
+                    task.completed =
+                        checkbox.checked;
+
+
+                    saveData();
+
+
+                    renderTaskList();
+
+
+                    renderCalendar();
+
+                };
+
+
+            /*
+               SUPPRESSION
+            */
+
+            item.querySelector(
+
+                ".delete-task"
+
+            ).onclick =
+
+                () => {
+
+
+                    data.tasks[
+                        selectedDate
+                    ].splice(
+
+                        index,
+
+                        1
+
+                    );
+
+
+                    if(
+
+                        data.tasks[
+                            selectedDate
+                        ].length === 0
+
+                    ) {
+
+
+                        delete data.tasks[
+                            selectedDate
+                        ];
+
+                    }
+
+
+                    saveData();
+
+
+                    renderTaskList();
+
+
+                    renderCalendar();
+
+                };
+
+
+            container.appendChild(
+                item
+            );
+
+        }
+
+    );
+
+}
+
+
+
+/* =====================================================
+   SETTINGS
+===================================================== */
+
+function openSettings() {
+
+
+    renderHolidayList();
+
+
+    renderCategoryList();
+
+
+    document.getElementById(
+
+        "settingsOverlay"
+
+    ).classList.add(
+        "open"
+    );
+
+}
+
+
+
+function closeSettings() {
+
+
+    document.getElementById(
+
+        "settingsOverlay"
+
+    ).classList.remove(
+        "open"
+    );
+
+
+    editingHoliday = null;
+
+
+    clearHolidayForm();
+
+
+    resetHolidayButton();
+
+}
+
+
+
+/* =====================================================
+   AJOUT / MODIFICATION FÉRIÉ
+===================================================== */
+
+function saveHoliday() {
+
+
+    const start =
+        document.getElementById(
+
+            "holidayStart"
+
+        ).value;
+
+
+    const end =
+        document.getElementById(
+
+            "holidayEnd"
+
+        ).value;
+
+
+    if(!start || !end) {
+
+
+        alert(
+
+            "Sélectionne les deux dates."
+
+        );
+
+
+        return;
+
+    }
+
+
+    if(start > end) {
+
+
+        alert(
+
+            "La date de début doit être " +
+            "avant la date de fin."
+
+        );
+
+
+        return;
+
+    }
+
+
+    if(
+
+        start < "2026-09-01" ||
+
+        end > "2027-02-10"
+
+    ) {
+
+
+        alert(
+
+            "La période doit rester " +
+            "dans le planning."
+
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+       MODIFICATION
+    */
+
+    if(
+
+        editingHoliday !== null
+
+    ) {
+
+
+        data.holidays[
+            editingHoliday
+        ] = {
+
+            start: start,
+
+            end: end
+
+        };
+
+
+        editingHoliday =
+            null;
+
+    }
+
+
+    /*
+       AJOUT
+    */
+
+    else {
+
+
+        data.holidays.push({
+
+            start: start,
+
+            end: end
+
+        });
+
+    }
+
+
+    saveData();
+
+
+    clearHolidayForm();
+
+
+    resetHolidayButton();
+
+
+    renderHolidayList();
+
+
+    renderCalendar();
+
+}
+
+
+
+/* =====================================================
+   LISTE FÉRIÉS
+===================================================== */
+
+function renderHolidayList() {
+
+
+    const container =
+        document.getElementById(
+
+            "holidayList"
+
+        );
+
+
+    container.innerHTML = "";
+
+
+    if(
+
+        data.holidays.length === 0
+
+    ) {
+
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                Aucun jour férié configuré.
+
+            </div>
+
+        `;
+
+
+        return;
+
+    }
+
+
+    data.holidays.forEach(
+
+        (holiday, index) => {
+
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "holiday-item";
+
+
+            const start =
+                dateFromKey(
+                    holiday.start
+                );
+
+
+            const end =
+                dateFromKey(
+                    holiday.end
+                );
+
+
+            const oneDay =
+
+                holiday.start ===
+                holiday.end;
+
+
+            const duration =
+                calculateDuration(
+                    start,
+                    end
+                );
+
+
+            item.innerHTML = `
+
+                <div
+                    class="holiday-info"
+                >
+
+                    <div>
+                        🎉
+                    </div>
+
+
+                    <div>
+
+                        <div
+                            class="holiday-dates"
+                        >
+
+                            ${
+                                oneDay
+
+                                    ?
+
+                                capitalize(
+                                    formatDate(
+                                        start
+                                    )
+                                )
+
+                                    :
+
+                                `${formatShortDate(
+                                    start
+                                )} → ${formatShortDate(
+                                    end
+                                )}`
+
+                            }
+
+                        </div>
+
+
+                        <div
+                            class="holiday-duration"
+                        >
+
+                            ${
+                                duration
+                            }
+
+                            ${
+                                duration <= 1
+                                    ? "jour"
+                                    : "jours"
+                            }
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="holiday-actions"
+                >
+
+
+                    <button
+
+                        class="
+                            small-button
+                            edit-button
+                        "
+
+                        onclick="
+                            editHoliday(
+                                ${index}
+                            )
+                        "
+                    >
+
+                        Modifier
+
+                    </button>
+
+
+                    <button
+
+                        class="
+                            small-button
+                            delete-button
+                        "
+
+                        onclick="
+                            deleteHoliday(
+                                ${index}
+                            )
+                        "
+                    >
+
+                        Supprimer
+
+                    </button>
+
+
+                </div>
+
+            `;
+
+
+            container.appendChild(
+                item
+            );
+
+        }
+
+    );
+
+}
+
+
+
+/* =====================================================
+   FORMAT DATE COURTE
+===================================================== */
+
+function formatShortDate(date) {
+
+
+    return date.toLocaleDateString(
+
+        "fr-FR",
+
+        {
+
+            day: "2-digit",
+
+            month: "2-digit",
+
+            year: "numeric"
+
+        }
+
+    );
+
+}
+
+
+
+/* =====================================================
+   MODIFIER FÉRIÉ
+===================================================== */
+
+function editHoliday(index) {
+
+
+    const holiday =
+        data.holidays[index];
+
+
+    document.getElementById(
+
+        "holidayStart"
+
+    ).value =
+
+        holiday.start;
+
+
+    document.getElementById(
+
+        "holidayEnd"
+
+    ).value =
+
+        holiday.end;
+
+
+    editingHoliday =
+        index;
+
+
+    document.getElementById(
+
+        "holidaySaveButton"
+
+    ).innerText =
+
+        "✓ Modifier";
+
+}
+
+
+
+/* =====================================================
+   SUPPRIMER FÉRIÉ
+===================================================== */
+
+function deleteHoliday(index) {
+
+
+    if(
+
+        !confirm(
+
+            "Supprimer cette période fériée ?"
+
+        )
+
+    ) {
+
+        return;
+
+    }
+
+
+    data.holidays.splice(
+
+        index,
+
+        1
+
+    );
+
+
+    saveData();
+
+
+    renderHolidayList();
+
+
+    renderCalendar();
+
+}
+
+
+
+/* =====================================================
+   RESET FORMULAIRE FÉRIÉ
+===================================================== */
+
+function clearHolidayForm() {
+
+
+    document.getElementById(
+
+        "holidayStart"
+
+    ).value = "";
+
+
+    document.getElementById(
+
+        "holidayEnd"
+
+    ).value = "";
+
+}
+
+
+
+function resetHolidayButton() {
+
+
+    document.getElementById(
+
+        "holidaySaveButton"
+
+    ).innerText =
+
+        "+ Ajouter";
+
+}
+
+
+
+/* =====================================================
+   CATÉGORIES
+===================================================== */
+
+function renderCategoryList() {
+
+
+    const container =
+        document.getElementById(
+
+            "categoryList"
+
+        );
+
+
+    container.innerHTML = "";
+
+
+    data.categories.forEach(
+
+        (category, index) => {
+
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "category-item";
+
+
+            item.innerHTML = `
+
+                <div
+                    class="category-left"
+                >
+
+
+                    <div
+
+                        class="category-color"
+
+                        style="
+                            background:
+                            ${category.color}
+                        "
+
+                    ></div>
+
+
+                    <div
+                        class="category-name"
+                    >
+
+                        ${escapeHTML(
+                            category.name
+                        )}
+
+                    </div>
+
+
+                </div>
+
+
+                <button
+
+                    class="
+                        small-button
+                        delete-button
+                    "
+
+                    onclick="
+                        deleteCategory(
+                            ${index}
+                        )
+                    "
+                >
+
+                    Supprimer
+
+                </button>
+
+            `;
+
+
+            container.appendChild(
+                item
+            );
+
+        }
+
+    );
+
+}
+
+
+
+/* =====================================================
+   AJOUT CATÉGORIE
+===================================================== */
+
+function addCategory() {
+
+
+    const name =
+        document.getElementById(
+
+            "newCategoryName"
+
+        ).value.trim();
+
+
+    const color =
+        document.getElementById(
+
+            "newCategoryColor"
+
+        ).value;
+
+
+    if(!name) {
+
+
+        alert(
+            "Donne un nom à la catégorie."
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+       Vérifie si le nom existe déjà.
+    */
+
+    const exists =
+        data.categories.some(
+
+            category =>
+
+            category.name
+                .toLowerCase() ===
+            name.toLowerCase()
+
+        );
+
+
+    if(exists) {
+
+
+        alert(
+            "Cette catégorie existe déjà."
+        );
+
+
+        return;
+
+    }
+
+
+    data.categories.push({
+
+        id:
+            "category_" +
+            Date.now(),
+
+        name: name,
+
+        color: color
+
+    });
+
+
+    document.getElementById(
+
+        "newCategoryName"
+
+    ).value = "";
+
+
+    saveData();
+
+
+    renderCategoryList();
+
+
+    populateCategories();
+
+}
+
+
+
+/* =====================================================
+   SUPPRIMER CATÉGORIE
+===================================================== */
+
+function deleteCategory(index) {
+
+
+    if(
+
+        data.categories.length <= 1
+
+    ) {
+
+
+        alert(
+
+            "Il faut conserver au moins " +
+            "une catégorie."
+
+        );
+
+
+        return;
+
+    }
+
+
+    if(
+
+        !confirm(
+
+            "Supprimer cette catégorie ?"
+
+        )
+
+    ) {
+
+        return;
+
+    }
+
+
+    data.categories.splice(
+
+        index,
+
+        1
+
+    );
+
+
+    saveData();
+
+
+    renderCategoryList();
+
+
+    populateCategories();
+
+
+    renderCalendar();
+
+}
+
+
+
+/* =====================================================
+   DURÉE
+===================================================== */
+
+function calculateDuration(
+
+    start,
+
+    end
+
+) {
+
+
+    const day =
+        24 * 60 * 60 * 1000;
+
+
+    return Math.round(
+
+        (
+            end - start
+        ) / day
+
+    ) + 1;
+
+}
+
+
+
+/* =====================================================
+   TRACKING
+===================================================== */
+
+function updateTracking() {
+
+
+    const holidayDates =
+        getHolidayDates();
+
+
+    /* =================================================
+       JOURS
+    ================================================= */
+
+
+    let totalDays = 0;
+
+    let completedDays = 0;
+
+
+    let current =
+        new Date(
+            START_DATE
+        );
+
+
+    while(
+
+        current <= END_DATE
+
+    ) {
+
+
+        const key =
+            dateKey(current);
+
+
+        /*
+           Les jours fériés ne comptent
+           pas comme jours à accomplir.
+        */
+
+        if(
+
+            !holidayDates.has(key)
+
+        ) {
+
+
+            totalDays++;
+
+
+            if(
+
+                data.completedDays[key]
+
+            ) {
+
+
+                completedDays++;
+
+            }
+
+        }
+
+
+        current.setDate(
+
+            current.getDate() + 1
+
+        );
+
+    }
+
+
+    const remainingDays =
+
+        totalDays -
+        completedDays;
+
+
+    updateTrackingCard(
+
+        "days",
+
+        completedDays,
+
+        totalDays,
+
+        remainingDays
+
+    );
+
+
+
+    /* =================================================
+       SEMAINES
+    ================================================= */
+
+
+    const weeks =
+        getWeeksInPeriod();
+
+
+    let completedWeeks = 0;
+
+
+    weeks.forEach(
+
+        week => {
+
+
+            const validDays =
+                week.filter(
+
+                    key =>
+
+                    !holidayDates.has(key)
+
+                );
+
+
+            /*
+               Une semaine est terminée
+               lorsque tous ses jours
+               sont terminés.
+            */
+
+            if(
+
+                validDays.length > 0 &&
+
+                validDays.every(
+
+                    key =>
+
+                    data.completedDays[key]
+
+                )
+
+            ) {
+
+
+                completedWeeks++;
+
+            }
+
+        }
+
+    );
+
+
+    const totalWeeks =
+        weeks.length;
+
+
+    const remainingWeeks =
+
+        totalWeeks -
+        completedWeeks;
+
+
+    updateTrackingCard(
+
+        "weeks",
+
+        completedWeeks,
+
+        totalWeeks,
+
+        remainingWeeks
+
+    );
+
+
+
+    /* =================================================
+       MOIS
+    ================================================= */
+
+
+    const monthGroups =
+        getMonthsInPeriod();
+
+
+    let completedMonths = 0;
+
+
+    monthGroups.forEach(
+
+        monthKeys => {
+
+
+            const validDays =
+                monthKeys.filter(
+
+                    key =>
+
+                    !holidayDates.has(key)
+
+                );
+
+
+            if(
+
+                validDays.length > 0 &&
+
+                validDays.every(
+
+                    key =>
+
+                    data.completedDays[key]
+
+                )
+
+            ) {
+
+
+                completedMonths++;
+
+            }
+
+        }
+
+    );
+
+
+    const totalMonths =
+        monthGroups.length;
+
+
+    const remainingMonths =
+
+        totalMonths -
+        completedMonths;
+
+
+    updateTrackingCard(
+
+        "months",
+
+        completedMonths,
+
+        totalMonths,
+
+        remainingMonths
+
+    );
+
+}
+
+
+
+/* =====================================================
+   SEMAINES
+===================================================== */
+
+function getWeeksInPeriod() {
+
+
+    const weeks = [];
+
+
+    let current =
+        new Date(
+            START_DATE
+        );
+
+
+    /*
+       Trouver le lundi de la semaine.
+    */
+
+    const day =
+        current.getDay() === 0
+
+            ? 6
+
+            : current.getDay() - 1;
+
+
+    current.setDate(
+
+        current.getDate() -
+        day
+
+    );
+
+
+    while(
+
+        current <= END_DATE
+
+    ) {
+
+
+        const week = [];
+
+
+        for(
+
+            let i = 0;
+
+            i < 7;
+
+            i++
+
+        ) {
+
+
+            const date =
+                new Date(
+                    current
+                );
+
+
+            date.setDate(
+
+                current.getDate() +
+                i
+
+            );
+
+
+            if(
+
+                date >= START_DATE &&
+
+                date <= END_DATE
+
+            ) {
+
+
+                week.push(
+                    dateKey(date)
+                );
+
+            }
+
+        }
+
+
+        if(
+
+            week.length > 0
+
+        ) {
+
+
+            weeks.push(
+                week
+            );
+
+        }
+
+
+        current.setDate(
+
+            current.getDate() + 7
+
+        );
+
+    }
+
+
+    return weeks;
+
+}
+
+
+
+/* =====================================================
+   MOIS
+===================================================== */
+
+function getMonthsInPeriod() {
+
+
+    const monthsList = [];
+
+
+    let current =
+
+        new Date(
+
+            START_DATE.getFullYear(),
+
+            START_DATE.getMonth(),
+
+            1
+
+        );
+
+
+    while(
+
+        current <= END_DATE
+
+    ) {
+
+
+        const monthKeys = [];
+
+
+        const year =
+            current.getFullYear();
+
+
+        const month =
+            current.getMonth();
+
+
+        const daysInMonth =
+
+            new Date(
+
+                year,
+
+                month + 1,
+
+                0
+
+            ).getDate();
+
+
+        for(
+
+            let d = 1;
+
+            d <= daysInMonth;
+
+            d++
+
+        ) {
+
+
+            const date =
+                new Date(
+
+                    year,
+
+                    month,
+
+                    d
+
+                );
+
+
+            if(
+
+                date >= START_DATE &&
+
+                date <= END_DATE
+
+            ) {
+
+
+                monthKeys.push(
+
+                    dateKey(date)
+
+                );
+
+            }
+
+        }
+
+
+        if(
+
+            monthKeys.length > 0
+
+        ) {
+
+
+            monthsList.push(
+                monthKeys
+            );
+
+        }
+
+
+        current.setMonth(
+
+            current.getMonth() + 1
+
+        );
+
+    }
+
+
+    return monthsList;
+
+}
+
+
+
+/* =====================================================
+   CARTE TRACKING
+===================================================== */
+
+function updateTrackingCard(
+
+    type,
+
+    completed,
+
+    total,
+
+    remaining
+
+) {
+
+
+    document.getElementById(
+
+        type + "Progress"
+
+    ).innerText =
+
+        `${completed} / ${total}`;
+
+
+    let label;
+
+
+    if(type === "days") {
+
+
+        label =
+            remaining <= 1
+                ? "jour"
+                : "jours";
+
+    }
+
+
+    else if(type === "weeks") {
+
+
+        label =
+            remaining <= 1
+                ? "semaine"
+                : "semaines";
+
+    }
+
+
+    else {
+
+
+        label = "mois";
+
+    }
+
+
+    document.getElementById(
+
+        type + "Remaining"
+
+    ).innerText =
+
+        `${remaining} ${label} restant${
+            type === "months"
+                ? ""
+                : remaining > 1
+                    ? "s"
+                    : ""
+        }`;
+
+
+    const percentage =
+
+        total === 0
+
+            ? 0
+
+            :
+
+        (
+            completed /
+            total
+        ) * 100;
+
+
+    document.getElementById(
+
+        type + "Bar"
+
+    ).style.width =
+
+        percentage + "%";
+
+}
+
+
+
+/* =====================================================
+   STATS TÂCHES
+===================================================== */
+
+function updateStats() {
+
+
+    let total = 0;
+
+    let completed = 0;
+
+
+    Object.values(
+
+        data.tasks
+
+    ).forEach(
+
+        tasks => {
+
+
+            tasks.forEach(
+
+                task => {
+
+
+                    total++;
+
+
+                    if(
+
+                        task.completed
+
+                    ) {
+
+
+                        completed++;
+
+                    }
+
+                }
+
+            );
+
+        }
+
+    );
+
+
+    document.getElementById(
+
+        "stats"
+
+    ).innerText =
+
+        `${completed} / ${total} tâche${
+            total > 1
+                ? "s"
+                : ""
+        } terminée${
+            completed > 1
+                ? "s"
+                : ""
+        }`;
+
+}
+
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(text) {
+
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        text;
+
+
+    return div.innerHTML;
+
+}
+
+
+
+/* =====================================================
+   FERMER EN CLIQUANT À L'EXTÉRIEUR
+===================================================== */
+
+document.getElementById(
+
+    "taskOverlay"
+
+).addEventListener(
+
+    "click",
+
+    event => {
+
+
+        if(
+
+            event.target.id ===
+            "taskOverlay"
+
+        ) {
+
+
+            closeTaskModal();
+
+        }
+
+    }
+
+);
+
+
+
+document.getElementById(
+
+    "settingsOverlay"
+
+).addEventListener(
+
+    "click",
+
+    event => {
+
+
+        if(
+
+            event.target.id ===
+            "settingsOverlay"
+
+        ) {
+
+
+            closeSettings();
+
+        }
+
+    }
+
+);
+
+
+
+/* =====================================================
+   ESCAPE POUR FERMER
+===================================================== */
+
+document.addEventListener(
+
+    "keydown",
+
+    event => {
+
+
+        if(event.key === "Escape") {
+
+
+            closeTaskModal();
+
+            closeSettings();
+
+        }
+
+    }
+
+);
+
+
+
+/* =====================================================
+   INITIALISATION
+===================================================== */
+
+loadData();
+
+renderCalendar();
+
+</script>
+
+
+</body>
+
+</html>
