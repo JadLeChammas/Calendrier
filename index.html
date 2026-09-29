@@ -1537,11 +1537,75 @@
             color: #999;
         }
 
-        .important-days-summary {
+        .planning-highlights {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 10px;
             margin-bottom: 22px;
+        }
+
+        .today-summary-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 11px 13px;
+            border-radius: 10px;
+            background: #f5f3ff;
+            border: 1px solid #dcd7fa;
+            cursor: pointer;
+            min-height: 64px;
+        }
+
+        .today-summary-item:hover {
+            border-color: #aaa2e8;
+        }
+
+        .today-summary-icon {
+            font-size: 20px;
+            width: 28px;
+            text-align: center;
+        }
+
+        .today-summary-date {
+            font-weight: 700;
+            color: #40379b;
+            font-size: 12px;
+        }
+
+        .today-summary-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #302b70;
+            margin-top: 2px;
+        }
+
+        .today-summary-tasks {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-top: 5px;
+        }
+
+        .today-summary-task {
+            font-size: 10px;
+            padding: 3px 6px;
+            border-radius: 5px;
+            color: white;
+            font-weight: 650;
+            max-width: 150px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .today-summary-empty {
+            color: #888894;
+            font-size: 11px;
+            margin-top: 4px;
+        }
+
+        .important-days-summary {
+            display: contents;
         }
 
         .important-summary-item {
@@ -1857,6 +1921,23 @@
         body.dark .important-summary-title,
         body.dark .important-list-item-title {
             color: #e8d8a9;
+        }
+
+        body.dark .today-summary-item {
+            background: #29264a;
+            border-color: #514b82;
+        }
+
+        body.dark .today-summary-item:hover {
+            border-color: #756eb5;
+        }
+
+        body.dark .today-summary-date {
+            color: #b9b3ff;
+        }
+
+        body.dark .today-summary-title {
+            color: #e4e1ff;
         }
 
         @media(max-width: 800px) {
@@ -2196,10 +2277,20 @@
          CALENDAR
     ================================================== -->
 
-    <div
-        id="importantDaysSummary"
-        class="important-days-summary"
-    ></div>
+    <div class="planning-highlights">
+
+        <div
+            id="todaySummary"
+            class="today-summary-item"
+            onclick="setView('day')"
+        ></div>
+
+        <div
+            id="importantDaysSummary"
+            class="important-days-summary"
+        ></div>
+
+    </div>
 
 
     <div
@@ -3138,6 +3229,7 @@ function renderCalendar() {
     updateStats();
 
     updateTracking();
+    renderTodaySummary();
     renderImportantDaysSummary();
 
     if(document.getElementById("dayView").classList.contains("show")) {
@@ -3864,7 +3956,8 @@ function openDay(key) {
 
         saveData();
         renderCalendar();
-        renderImportantDaysSummary();
+        renderTodaySummary();
+    renderImportantDaysSummary();
         renderDayView(key);
     };
 
@@ -3875,7 +3968,8 @@ function openDay(key) {
             };
             saveData();
             renderCalendar();
-            renderImportantDaysSummary();
+            renderTodaySummary();
+    renderImportantDaysSummary();
             renderDayView(key);
         }
     };
@@ -6598,6 +6692,35 @@ function getImportantDayEntries() {
 }
 
 
+function renderTodaySummary() {
+
+    const container = document.getElementById("todaySummary");
+    if(!container) return;
+
+    const key = getTodayKey();
+    const date = dateFromKey(key);
+    const holiday = getHolidayDates().has(key);
+    const tasks = holiday ? [] : (data.tasks[key] || []);
+    const completed = !!data.completedDays[key];
+
+    const taskHTML = tasks.length === 0
+        ? `<div class="today-summary-empty">${holiday ? "🎉 Journée fériée" : "Aucune tâche prévue"}</div>`
+        : `<div class="today-summary-tasks">${tasks.slice(0, 4).map(task => {
+            const category = data.categories.find(c => c.id === task.categoryId);
+            return `<span class="today-summary-task" style="background:${category ? category.color : "#5B50B5"}">${escapeHTML(task.text)}</span>`;
+        }).join("")}${tasks.length > 4 ? `<span class="today-summary-empty">+${tasks.length - 4} autre(s)</span>` : ""}</div>`;
+
+    container.innerHTML = `
+        <div class="today-summary-icon">📍</div>
+        <div>
+            <div class="today-summary-date">${escapeHTML(formatShortDate(date))}</div>
+            <div class="today-summary-title">Aujourd'hui${completed ? " · ✓ Journée terminée" : ""}</div>
+            ${taskHTML}
+        </div>
+    `;
+}
+
+
 function renderImportantDaysSummary() {
 
     const container = document.getElementById("importantDaysSummary");
@@ -6947,6 +7070,7 @@ loadData();
 
 applyDarkMode();
 renderCalendar();
+renderTodaySummary();
 renderImportantDaysSummary();
 
 </script>
