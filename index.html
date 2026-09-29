@@ -434,6 +434,35 @@
         }
 
 
+        /* =====================================================
+           WEEK-END
+        ===================================================== */
+
+        .day.weekend {
+
+            background: #f5f5f8;
+
+            border-color: #e2e2e8;
+
+        }
+
+
+        .day.weekend .day-number {
+
+            color: #777783;
+
+        }
+
+
+        .day.weekend:hover {
+
+            border-color: #aaa9b8;
+
+            background: #eeeeF3;
+
+        }
+
+
         .day:hover {
 
             border-color: #7469c4;
@@ -541,6 +570,15 @@
             border-color: #f0cccc;
 
             cursor: not-allowed;
+
+        }
+
+
+        .day.weekend.holiday {
+
+            background: #fff8f8;
+
+            border-color: #f0cccc;
 
         }
 
@@ -1318,6 +1356,71 @@
         }
 
 
+        .completion-label input:disabled + span {
+
+            color: #888894;
+
+        }
+
+
+        /* =====================================================
+           TÂCHE SUR TOUTE LA SEMAINE
+        ===================================================== */
+
+        .week-task-box {
+
+            margin-top: 12px;
+
+            padding: 12px;
+
+            background: #f8f8fc;
+
+            border: 1px solid #e2e1eb;
+
+            border-radius: 8px;
+
+        }
+
+
+        .week-task-check {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            color: #40379b;
+
+        }
+
+
+        .week-task-check input {
+
+            width: 18px;
+
+            height: 18px;
+
+            accent-color: #4b40a6;
+
+        }
+
+
+        .week-task-help {
+
+            margin: 7px 0 0 26px;
+
+            font-size: 11px;
+
+            color: #888894;
+
+        }
+
+
         /* =====================================================
            RESPONSIVE
         ===================================================== */
@@ -1754,6 +1857,7 @@
 
                         <select
                             id="recurrenceFrequency"
+                            onchange="updateRecurrenceFields()"
                         >
 
                             <option value="weekly">
@@ -1766,7 +1870,10 @@
 
 
 
-                    <div class="form-group">
+                    <div
+                        id="recurrenceDayGroup"
+                        class="form-group"
+                    >
 
                         <label>
                             Jour
@@ -1811,7 +1918,10 @@
 
 
 
-                    <div class="form-group">
+                    <div
+                        id="recurrenceTimeGroup"
+                        class="form-group"
+                    >
 
                         <label>
                             Heure
@@ -1832,6 +1942,29 @@
 
             </div>
 
+
+            <!-- TÂCHE SUR TOUTE LA SEMAINE -->
+
+            <div class="week-task-box">
+
+                <label class="week-task-check">
+
+                    <input
+                        type="checkbox"
+                        id="wholeWeekCheckbox"
+                        onchange="toggleWholeWeek()"
+                    >
+
+                    📆 Tâche pour toute la semaine
+
+                </label>
+
+                <div class="week-task-help">
+                    La tâche sera ajoutée du lundi au dimanche de la semaine sélectionnée,
+                    sauf les jours fériés.
+                </div>
+
+            </div>
 
 
             <button
@@ -2663,6 +2796,22 @@ function createMonth(
             "day";
 
 
+        /* WEEK-END */
+
+        const isWeekend =
+            date.getDay() === 0 ||
+            date.getDay() === 6;
+
+
+        if(isWeekend) {
+
+            day.classList.add(
+                "weekend"
+            );
+
+        }
+
+
         /* HORS PÉRIODE */
 
         if(
@@ -2702,6 +2851,10 @@ function createMonth(
             &&
 
             !isHoliday
+
+            &&
+
+            !isWeekend
 
         ) {
 
@@ -2946,9 +3099,18 @@ function createMonth(
 function toggleCompletedDay(key) {
 
 
+    const date =
+        dateFromKey(key);
+
+    const isWeekend =
+        date.getDay() === 0 ||
+        date.getDay() === 6;
+
+
     if(
 
-        getHolidayDates().has(key)
+        getHolidayDates().has(key) ||
+        isWeekend
 
     ) {
 
@@ -3024,6 +3186,10 @@ function openDay(key) {
     const completed =
         data.completedDays[key] || false;
 
+    const isWeekend =
+        date.getDay() === 0 ||
+        date.getDay() === 6;
+
     const completion =
         document.getElementById(
             "dayCompletion"
@@ -3037,10 +3203,18 @@ function openDay(key) {
                 type="checkbox"
                 id="dayCompletedCheckbox"
                 ${completed ? "checked" : ""}
-                ${holiday ? "disabled" : ""}
+                ${holiday || isWeekend ? "disabled" : ""}
             >
 
-            <span>Journée terminée</span>
+            <span>
+                ${
+                    holiday
+                        ? "🎉 Jour férié — hors calcul"
+                        : isWeekend
+                            ? "🏖️ Week-end — hors calcul"
+                            : "Journée terminée"
+                }
+            </span>
 
         </label>
 
@@ -3070,6 +3244,17 @@ function openDay(key) {
         updateTracking();
 
     };
+
+
+    document.getElementById(
+        "wholeWeekCheckbox"
+    ).checked = false;
+
+    document.getElementById(
+        "recurringCheckbox"
+    ).checked = false;
+
+    toggleRecurrence();
 
 
     populateCategories();
@@ -3191,36 +3376,115 @@ function toggleRecurrence() {
 
     const checked =
         document.getElementById(
-
             "recurringCheckbox"
-
         ).checked;
 
 
     const options =
         document.getElementById(
-
             "recurrenceOptions"
+        );
 
+
+    const wholeWeek =
+        document.getElementById(
+            "wholeWeekCheckbox"
         );
 
 
     if(checked) {
 
+        if(wholeWeek) {
+            wholeWeek.checked = false;
+        }
 
         options.classList.add(
             "show"
         );
 
+        updateRecurrenceFields();
 
     }
 
     else {
 
-
         options.classList.remove(
             "show"
         );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   TÂCHE SUR TOUTE LA SEMAINE ON/OFF
+===================================================== */
+
+function toggleWholeWeek() {
+
+
+    const checked =
+        document.getElementById(
+            "wholeWeekCheckbox"
+        ).checked;
+
+
+    const recurring =
+        document.getElementById(
+            "recurringCheckbox"
+        );
+
+
+    if(checked) {
+
+        recurring.checked = false;
+
+        toggleRecurrence();
+
+    }
+
+}
+
+
+
+/* =====================================================
+   AFFICHER LES CHAMPS DE RÉCURRENCE
+===================================================== */
+
+function updateRecurrenceFields() {
+
+
+    const frequency =
+        document.getElementById(
+            "recurrenceFrequency"
+        ).value;
+
+
+    const dayGroup =
+        document.getElementById(
+            "recurrenceDayGroup"
+        );
+
+
+    const timeGroup =
+        document.getElementById(
+            "recurrenceTimeGroup"
+        );
+
+
+    if(frequency === "weekly") {
+
+        dayGroup.style.display = "flex";
+        timeGroup.style.display = "flex";
+
+    }
+
+    else {
+
+        dayGroup.style.display = "none";
+        timeGroup.style.display = "none";
 
     }
 
@@ -3237,9 +3501,7 @@ function addTask() {
 
     const input =
         document.getElementById(
-
             "taskInput"
-
         );
 
 
@@ -3249,37 +3511,27 @@ function addTask() {
 
     if(!text) {
 
-
         alert(
             "Écris d'abord une tâche."
         );
-
 
         return;
 
     }
 
 
-    /*
-       Vérification jour férié
-    */
+    const holidayDates =
+        getHolidayDates();
+
 
     if(
-
-        getHolidayDates().has(
-            selectedDate
-        )
-
+        holidayDates.has(selectedDate)
     ) {
 
-
         alert(
-
             "Ce jour est férié. " +
             "Aucune tâche ne peut être ajoutée."
-
         );
-
 
         return;
 
@@ -3288,79 +3540,64 @@ function addTask() {
 
     const categoryId =
         document.getElementById(
-
             "categorySelect"
-
         ).value;
 
 
     const recurring =
         document.getElementById(
-
             "recurringCheckbox"
-
         ).checked;
 
 
-    /*
-       TÂCHE NORMALE
-    */
+    const wholeWeek =
+        document.getElementById(
+            "wholeWeekCheckbox"
+        ).checked;
 
-    if(!recurring) {
 
+    if(wholeWeek) {
 
-        addSingleTask(
-
+        createWeekTask(
             selectedDate,
-
             text,
-
-            categoryId,
-
-            false
-
+            categoryId
         );
 
     }
 
+    else if(!recurring) {
 
-    /*
-       TÂCHE RÉCURRENTE
-    */
+        addSingleTask(
+            selectedDate,
+            text,
+            categoryId,
+            false
+        );
+
+    }
 
     else {
 
-
         const day =
             parseInt(
-
                 document.getElementById(
-
                     "recurrenceDay"
-
                 ).value
-
             );
 
 
         const time =
             document.getElementById(
-
                 "recurrenceTime"
-
             ).value;
 
 
         createRecurringTask(
-
             text,
-
             categoryId,
-
             day,
-
             time
-
         );
 
     }
@@ -3368,22 +3605,19 @@ function addTask() {
 
     input.value = "";
 
-
     document.getElementById(
-
         "recurringCheckbox"
-
     ).checked = false;
 
+    document.getElementById(
+        "wholeWeekCheckbox"
+    ).checked = false;
 
     toggleRecurrence();
 
-
     saveData();
 
-
     renderTaskList();
-
 
     renderCalendar();
 
@@ -3445,6 +3679,106 @@ function addSingleTask(
 /* =====================================================
    TÂCHE RÉCURRENTE
 ===================================================== */
+
+function createWeekTask(
+
+    selectedKey,
+
+    text,
+
+    categoryId
+
+) {
+
+
+    const selected =
+        dateFromKey(selectedKey);
+
+
+    const jsDay =
+        selected.getDay();
+
+
+    const daysFromMonday =
+        jsDay === 0
+            ? 6
+            : jsDay - 1;
+
+
+    const monday =
+        new Date(selected);
+
+
+    monday.setDate(
+        monday.getDate() -
+        daysFromMonday
+    );
+
+
+    const holidayDates =
+        getHolidayDates();
+
+
+    for(let i = 0; i < 7; i++) {
+
+        const date =
+            new Date(monday);
+
+
+        date.setDate(
+            monday.getDate() + i
+        );
+
+
+        if(
+            date < START_DATE ||
+            date > END_DATE
+        ) {
+
+            continue;
+
+        }
+
+
+        const key =
+            dateKey(date);
+
+
+        if(
+            holidayDates.has(key)
+        ) {
+
+            continue;
+
+        }
+
+
+        if(!data.tasks[key]) {
+
+            data.tasks[key] = [];
+
+        }
+
+
+        data.tasks[key].push({
+
+            text: text,
+
+            categoryId: categoryId,
+
+            completed: false,
+
+            recurring: false,
+
+            wholeWeek: true
+
+        });
+
+    }
+
+}
+
+
 
 function createRecurringTask(
 
@@ -3532,9 +3866,15 @@ function createRecurringTask(
            on ne crée PAS la tâche.
         */
 
+        const dateIsWeekend =
+            current.getDay() === 0 ||
+            current.getDay() === 6;
+
+
         if(
 
-            !holidayDates.has(key)
+            !holidayDates.has(key) &&
+            !dateIsWeekend
 
         ) {
 
@@ -4875,9 +5215,21 @@ function updateTracking() {
             const validDays =
                 week.filter(
 
-                    key =>
+                    key => {
 
-                    !holidayDates.has(key)
+                        const date =
+                            dateFromKey(key);
+
+                        const isWeekend =
+                            date.getDay() === 0 ||
+                            date.getDay() === 6;
+
+                        return (
+                            !holidayDates.has(key) &&
+                            !isWeekend
+                        );
+
+                    }
 
                 );
 
@@ -4956,9 +5308,21 @@ function updateTracking() {
             const validDays =
                 monthKeys.filter(
 
-                    key =>
+                    key => {
 
-                    !holidayDates.has(key)
+                        const date =
+                            dateFromKey(key);
+
+                        const isWeekend =
+                            date.getDay() === 0 ||
+                            date.getDay() === 6;
+
+                        return (
+                            !holidayDates.has(key) &&
+                            !isWeekend
+                        );
+
+                    }
 
                 );
 
