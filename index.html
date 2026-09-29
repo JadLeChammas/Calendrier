@@ -1422,6 +1422,450 @@
 
 
         /* =====================================================
+           VIEW CONTROLS
+        ===================================================== */
+
+        .view-controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .view-button {
+            border: none;
+            border-radius: 9px;
+            padding: 10px 14px;
+            background: #f0effc;
+            color: #40379b;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .view-button.active {
+            background: #4b40a6;
+            color: white;
+        }
+
+        .day-view {
+            display: none;
+            margin-top: 4px;
+        }
+
+        .day-view.show {
+            display: block;
+        }
+
+        .calendar-view.hidden {
+            display: none;
+        }
+
+        .day-view-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.7fr) minmax(280px, .8fr);
+            gap: 20px;
+        }
+
+        .day-view-card,
+        .important-panel {
+            background: white;
+            border: 1px solid #e7e6ef;
+            border-radius: 15px;
+            padding: 22px;
+            box-shadow: 0 3px 12px rgba(30,30,80,.05);
+        }
+
+        .day-view-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 18px;
+        }
+
+        .day-view-title {
+            margin: 0;
+            color: #20205c;
+            font-size: 25px;
+        }
+
+        .day-view-subtitle {
+            color: #888894;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .day-nav {
+            display: flex;
+            gap: 7px;
+        }
+
+        .day-nav button {
+            border: 1px solid #e2e1eb;
+            background: #f8f8fc;
+            color: #40379b;
+            border-radius: 8px;
+            padding: 8px 10px;
+            font-weight: 700;
+        }
+
+        .day-view-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .day-view-task {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            border-radius: 9px;
+            background: #f7f7fb;
+            margin-bottom: 8px;
+            border-left: 4px solid #5b50b5;
+        }
+
+        .day-view-task span {
+            flex: 1;
+            font-size: 14px;
+        }
+
+        .day-view-task.completed span {
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        .important-days-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 10px;
+            margin-bottom: 22px;
+        }
+
+        .important-summary-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 13px;
+            border-radius: 10px;
+            background: #fffaf0;
+            border: 1px solid #f0dfb4;
+            cursor: pointer;
+        }
+
+        .important-summary-item:hover {
+            border-color: #d7b86a;
+        }
+
+        .important-summary-date {
+            font-weight: 700;
+            color: #9a6a12;
+            font-size: 12px;
+        }
+
+        .important-summary-title {
+            font-size: 13px;
+            font-weight: 650;
+            color: #5f4b1e;
+        }
+
+        .important-day {
+            background: #fffaf0 !important;
+            border-color: #e4c76e !important;
+        }
+
+        .important-day .day-number {
+            color: #9a6a12;
+        }
+
+        .important-star {
+            position: absolute;
+            top: 4px;
+            right: 5px;
+            font-size: 12px;
+        }
+
+        .important-editor {
+            margin-bottom: 20px;
+            padding: 14px 16px;
+            background: #fffaf0;
+            border-radius: 10px;
+            border: 1px solid #f0dfb4;
+        }
+
+        .important-editor-label {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #8a641b;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .important-editor input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #c79428;
+        }
+
+        .important-title-input {
+            width: 100%;
+            padding: 10px 11px;
+            border: 1px solid #e4d5ac;
+            border-radius: 7px;
+            background: white;
+            outline: none;
+        }
+
+        .important-title-input:focus {
+            border-color: #c79428;
+        }
+
+        .important-list {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .important-list h3 {
+            margin: 0 0 8px;
+            color: #40379b;
+            font-size: 17px;
+        }
+
+        .important-list-item {
+            padding: 12px 13px;
+            border-radius: 9px;
+            background: #fffaf0;
+            border: 1px solid #f0dfb4;
+            cursor: pointer;
+        }
+
+        .important-list-item-date {
+            font-size: 11px;
+            font-weight: 700;
+            color: #9a6a12;
+            margin-bottom: 3px;
+        }
+
+        .important-list-item-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #5f4b1e;
+        }
+
+        .multi-day-box {
+            margin-top: 12px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #e2e1eb;
+            border-radius: 8px;
+        }
+
+        .multi-day-check {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #40379b;
+        }
+
+        .multi-day-check input {
+            width: 18px;
+            height: 18px;
+            accent-color: #4b40a6;
+        }
+
+        .multi-day-options {
+            display: none;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .multi-day-options.show {
+            display: grid;
+        }
+
+        .multi-day-help {
+            margin: 7px 0 0 26px;
+            font-size: 11px;
+            color: #888894;
+        }
+
+        /* =====================================================
+           DARK MODE
+        ===================================================== */
+
+        body.dark {
+            background: #11111a;
+            color: #eeeeF7;
+        }
+
+        body.dark header {
+            background: #191923;
+            border-bottom-color: #2d2d3b;
+        }
+
+        body.dark .logo,
+        body.dark .page-title h1,
+        body.dark .day-view-title {
+            color: #d9d5ff;
+        }
+
+        body.dark .page-title p,
+        body.dark .tracking-title,
+        body.dark .tracking-remaining,
+        body.dark .weekday,
+        body.dark .day-view-subtitle {
+            color: #a2a2b1;
+        }
+
+        body.dark .settings-button,
+        body.dark .view-button,
+        body.dark .day-nav button {
+            background: #29283a;
+            color: #d8d3ff;
+            border-color: #3a394d;
+        }
+
+        body.dark .view-button.active {
+            background: #5b50b5;
+            color: white;
+        }
+
+        body.dark .stats {
+            background: #29283a;
+            color: #d8d3ff;
+        }
+
+        body.dark .tracking-card,
+        body.dark .month,
+        body.dark .day-view-card,
+        body.dark .important-panel,
+        body.dark .modal {
+            background: #1b1b26;
+            border-color: #30303f;
+            box-shadow: 0 3px 14px rgba(0,0,0,.25);
+        }
+
+        body.dark .month-header h2,
+        body.dark .modal-header h2,
+        body.dark .important-list h3 {
+            color: #bcb6ff;
+        }
+
+        body.dark .day {
+            background: #1d1d28;
+            border-color: #30303d;
+            color: #eeeeF7;
+        }
+
+        body.dark .day:hover {
+            background: #252535;
+            border-color: #6d63bd;
+        }
+
+        body.dark .day.weekend,
+        body.dark .day.outside {
+            background: #171720;
+            border-color: #292934;
+        }
+
+        body.dark .day.completed-day {
+            background: #292746;
+        }
+
+        body.dark .day.holiday {
+            background: #2b1c20;
+            border-color: #66363e;
+        }
+
+        body.dark .day.empty {
+            background: transparent;
+            border: none;
+        }
+
+        body.dark .task-item,
+        body.dark .day-view-task,
+        body.dark .add-task-form,
+        body.dark .holiday-form,
+        body.dark .category-item,
+        body.dark .recurrence-box,
+        body.dark .week-task-box {
+            background: #22222e;
+            border-color: #353546;
+        }
+
+        body.dark .form-group input,
+        body.dark .form-group select,
+        body.dark .category-form input[type="text"],
+        body.dark .category-form input[type="color"],
+        body.dark .important-title-input {
+            background: #171720;
+            color: #eeeeF7;
+            border-color: #3a3a4b;
+        }
+
+        body.dark .close {
+            background: #2a2939;
+            color: #d8d3ff;
+        }
+
+        body.dark .task-category {
+            background: #2b2b38;
+            color: #c7c7d2;
+        }
+
+        body.dark .empty {
+            background: #20202b;
+            color: #a2a2b1;
+        }
+
+        body.dark .day-completion {
+            background: #27263a;
+            border-color: #3a3854;
+        }
+
+        body.dark .completion-label {
+            color: #c6c0ff;
+        }
+
+        body.dark .important-day {
+            background: #2b2518 !important;
+            border-color: #80682b !important;
+        }
+
+        body.dark .important-editor,
+        body.dark .important-list-item,
+        body.dark .important-summary-item {
+            background: #2b2518;
+            border-color: #5c4d27;
+        }
+
+        body.dark .important-editor-label,
+        body.dark .important-summary-date,
+        body.dark .important-list-item-date {
+            color: #e0ba55;
+        }
+
+        body.dark .important-summary-title,
+        body.dark .important-list-item-title {
+            color: #e8d8a9;
+        }
+
+        @media(max-width: 800px) {
+            .day-view-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* =====================================================
            RESPONSIVE
         ===================================================== */
 
@@ -1526,14 +1970,24 @@
     </div>
 
 
-    <button
-        class="settings-button"
-        onclick="openSettings()"
-    >
+    <div class="view-controls">
 
-        ⚙️ Paramètres
+        <button
+            id="darkModeButton"
+            class="settings-button"
+            onclick="toggleDarkMode()"
+        >
+            🌙 Mode sombre
+        </button>
 
-    </button>
+        <button
+            class="settings-button"
+            onclick="openSettings()"
+        >
+            ⚙️ Paramètres
+        </button>
+
+    </div>
 
 </header>
 
@@ -1563,12 +2017,30 @@
         </div>
 
 
-        <div
-            id="stats"
-            class="stats"
-        >
+        <div class="view-controls">
 
-            0 tâche
+            <button
+                id="calendarViewButton"
+                class="view-button active"
+                onclick="setView('calendar')"
+            >
+                🗓️ Calendrier
+            </button>
+
+            <button
+                id="todayViewButton"
+                class="view-button"
+                onclick="setView('day')"
+            >
+                📍 Aujourd'hui
+            </button>
+
+            <div
+                id="stats"
+                class="stats"
+            >
+                0 tâche
+            </div>
 
         </div>
 
@@ -1725,8 +2197,20 @@
     ================================================== -->
 
     <div
+        id="importantDaysSummary"
+        class="important-days-summary"
+    ></div>
+
+
+    <div
         id="calendar"
-        class="months"
+        class="months calendar-view"
+    ></div>
+
+
+    <div
+        id="dayView"
+        class="day-view"
     ></div>
 
 
@@ -1768,6 +2252,12 @@
         <div
             id="dayCompletion"
             class="day-completion"
+        ></div>
+
+
+        <div
+            id="importantEditor"
+            class="important-editor"
         ></div>
 
 
@@ -1939,6 +2429,53 @@
 
                 </div>
 
+
+            </div>
+
+
+            <!-- TÂCHE SUR PLUSIEURS JOURS -->
+
+            <div class="multi-day-box">
+
+                <label class="multi-day-check">
+
+                    <input
+                        type="checkbox"
+                        id="multiDayCheckbox"
+                        onchange="toggleMultiDay()"
+                    >
+
+                    📅 Tâche sur plusieurs jours
+
+                </label>
+
+                <div class="multi-day-options" id="multiDayOptions">
+
+                    <div class="form-group">
+                        <label>Du</label>
+                        <input
+                            id="multiDayStart"
+                            type="date"
+                            min="2026-09-01"
+                            max="2027-02-10"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label>Au</label>
+                        <input
+                            id="multiDayEnd"
+                            type="date"
+                            min="2026-09-01"
+                            max="2027-02-10"
+                        >
+                    </div>
+
+                </div>
+
+                <div class="multi-day-help">
+                    La tâche sera ajoutée à chaque jour de la période, sauf les jours fériés.
+                </div>
 
             </div>
 
@@ -2286,7 +2823,11 @@ let data = {
 
     tasks: {},
 
-    completedDays: {}
+    completedDays: {},
+
+    importantDays: {},
+
+    darkMode: false
 
 };
 
@@ -2357,6 +2898,18 @@ function loadData() {
     if(!data.completedDays) {
 
         data.completedDays = {};
+
+    }
+
+    if(!data.importantDays) {
+
+        data.importantDays = {};
+
+    }
+
+    if(typeof data.darkMode !== "boolean") {
+
+        data.darkMode = false;
 
     }
 
@@ -2585,6 +3138,11 @@ function renderCalendar() {
     updateStats();
 
     updateTracking();
+    renderImportantDaysSummary();
+
+    if(document.getElementById("dayView").classList.contains("show")) {
+        renderDayView(document.getElementById("dayView").dataset.date || getTodayKey());
+    }
 
 }
 
@@ -2842,6 +3400,17 @@ function createMonth(
         }
 
 
+        /* JOUR IMPORTANT */
+
+        if(data.importantDays[key]) {
+
+            day.classList.add(
+                "important-day"
+            );
+
+        }
+
+
         /* JOUR TERMINÉ */
 
         if(
@@ -2884,6 +3453,16 @@ function createMonth(
         day.appendChild(
             numberElement
         );
+
+
+        if(data.importantDays[key]) {
+
+            const star = document.createElement("div");
+            star.className = "important-star";
+            star.innerText = "⭐";
+            day.appendChild(star);
+
+        }
 
 
         /* LABEL FÉRIÉ */
@@ -3243,6 +3822,62 @@ function openDay(key) {
 
         updateTracking();
 
+        renderDayView(key);
+
+    };
+
+
+    const important = data.importantDays[key] || null;
+
+    const importantEditor = document.getElementById("importantEditor");
+
+    importantEditor.innerHTML = `
+        <label class="important-editor-label">
+            <input
+                type="checkbox"
+                id="importantDayCheckbox"
+                ${important ? "checked" : ""}
+            >
+            ⭐ Marquer cette journée comme importante
+        </label>
+
+        <input
+            id="importantDayTitle"
+            class="important-title-input"
+            type="text"
+            value="${important ? escapeHTML(important.title || "Journée importante") : ""}"
+            placeholder="Ex : Présentation, examen, rendez-vous important..."
+        >
+    `;
+
+    const importantCheckbox = document.getElementById("importantDayCheckbox");
+    const importantTitle = document.getElementById("importantDayTitle");
+
+    importantCheckbox.onchange = function() {
+        if(this.checked) {
+            data.importantDays[key] = {
+                title: importantTitle.value.trim() || "Journée importante"
+            };
+        } else {
+            delete data.importantDays[key];
+        }
+
+        saveData();
+        renderCalendar();
+        renderImportantDaysSummary();
+        renderDayView(key);
+    };
+
+    importantTitle.onchange = function() {
+        if(importantCheckbox.checked) {
+            data.importantDays[key] = {
+                title: importantTitle.value.trim() || "Journée importante"
+            };
+            saveData();
+            renderCalendar();
+            renderImportantDaysSummary();
+            renderDayView(key);
+        }
     };
 
 
@@ -3254,7 +3889,20 @@ function openDay(key) {
         "recurringCheckbox"
     ).checked = false;
 
+    document.getElementById(
+        "multiDayCheckbox"
+    ).checked = false;
+
+    document.getElementById(
+        "multiDayStart"
+    ).value = key;
+
+    document.getElementById(
+        "multiDayEnd"
+    ).value = key;
+
     toggleRecurrence();
+    toggleMultiDay();
 
 
     populateCategories();
@@ -3391,11 +4039,21 @@ function toggleRecurrence() {
             "wholeWeekCheckbox"
         );
 
+    const multiDay =
+        document.getElementById(
+            "multiDayCheckbox"
+        );
+
 
     if(checked) {
 
         if(wholeWeek) {
             wholeWeek.checked = false;
+        }
+
+        if(multiDay) {
+            multiDay.checked = false;
+            document.getElementById("multiDayOptions").classList.remove("show");
         }
 
         options.classList.add(
@@ -3436,10 +4094,20 @@ function toggleWholeWeek() {
             "recurringCheckbox"
         );
 
+    const multiDay =
+        document.getElementById(
+            "multiDayCheckbox"
+        );
+
 
     if(checked) {
 
         recurring.checked = false;
+
+        if(multiDay) {
+            multiDay.checked = false;
+            document.getElementById("multiDayOptions").classList.remove("show");
+        }
 
         toggleRecurrence();
 
@@ -3490,6 +4158,28 @@ function updateRecurrenceFields() {
 
 }
 
+
+
+/* =====================================================
+   TÂCHE SUR PLUSIEURS JOURS ON/OFF
+===================================================== */
+
+function toggleMultiDay() {
+
+    const checked = document.getElementById("multiDayCheckbox").checked;
+    const options = document.getElementById("multiDayOptions");
+    const recurring = document.getElementById("recurringCheckbox");
+    const wholeWeek = document.getElementById("wholeWeekCheckbox");
+
+    if(checked) {
+        recurring.checked = false;
+        wholeWeek.checked = false;
+        toggleRecurrence();
+        options.classList.add("show");
+    } else {
+        options.classList.remove("show");
+    }
+}
 
 
 /* =====================================================
@@ -3555,6 +4245,11 @@ function addTask() {
             "wholeWeekCheckbox"
         ).checked;
 
+    const multiDay =
+        document.getElementById(
+            "multiDayCheckbox"
+        ).checked;
+
 
     if(wholeWeek) {
 
@@ -3563,6 +4258,25 @@ function addTask() {
             text,
             categoryId
         );
+
+    }
+
+    else if(multiDay) {
+
+        const start = document.getElementById("multiDayStart").value;
+        const end = document.getElementById("multiDayEnd").value;
+
+        if(!start || !end) {
+            alert("Sélectionne les deux dates de la période.");
+            return;
+        }
+
+        if(start > end) {
+            alert("La date de début doit être avant la date de fin.");
+            return;
+        }
+
+        createMultiDayTask(start, end, text, categoryId);
 
     }
 
@@ -3613,7 +4327,12 @@ function addTask() {
         "wholeWeekCheckbox"
     ).checked = false;
 
+    document.getElementById(
+        "multiDayCheckbox"
+    ).checked = false;
+
     toggleRecurrence();
+    toggleMultiDay();
 
     saveData();
 
@@ -3679,6 +4398,49 @@ function addSingleTask(
 /* =====================================================
    TÂCHE RÉCURRENTE
 ===================================================== */
+
+function createMultiDayTask(
+
+    startKey,
+
+    endKey,
+
+    text,
+
+    categoryId
+
+) {
+
+    const holidayDates = getHolidayDates();
+    let current = dateFromKey(startKey);
+    const end = dateFromKey(endKey);
+
+    while(current <= end) {
+
+        if(current >= START_DATE && current <= END_DATE) {
+
+            const key = dateKey(current);
+
+            if(!holidayDates.has(key)) {
+
+                if(!data.tasks[key]) {
+                    data.tasks[key] = [];
+                }
+
+                data.tasks[key].push({
+                    text: text,
+                    categoryId: categoryId,
+                    completed: false,
+                    recurring: false,
+                    multiDay: true
+                });
+            }
+        }
+
+        current.setDate(current.getDate() + 1);
+    }
+}
+
 
 function createWeekTask(
 
@@ -5825,6 +6587,271 @@ function escapeHTML(text) {
 
 
 /* =====================================================
+   JOURS IMPORTANTS
+===================================================== */
+
+function getImportantDayEntries() {
+
+    return Object.entries(data.importantDays || {})
+        .filter(([key]) => isInPeriod(dateFromKey(key)))
+        .sort(([a], [b]) => a.localeCompare(b));
+}
+
+
+function renderImportantDaysSummary() {
+
+    const container = document.getElementById("importantDaysSummary");
+    const entries = getImportantDayEntries();
+
+    container.innerHTML = "";
+
+    if(entries.length === 0) {
+        return;
+    }
+
+    entries.forEach(([key, item]) => {
+        const date = dateFromKey(key);
+        const element = document.createElement("div");
+        element.className = "important-summary-item";
+        element.innerHTML = `
+            <span>⭐</span>
+            <div>
+                <div class="important-summary-date">${escapeHTML(formatShortDate(date))}</div>
+                <div class="important-summary-title">${escapeHTML(item.title || "Journée importante")}</div>
+            </div>
+        `;
+        element.onclick = () => openDay(key);
+        container.appendChild(element);
+    });
+}
+
+
+function renderImportantDaysList() {
+
+    const entries = getImportantDayEntries();
+
+    if(entries.length === 0) {
+        return `<div class="empty">Aucun jour important pour le moment.</div>`;
+    }
+
+    return entries.map(([key, item]) => {
+        const date = dateFromKey(key);
+        return `
+            <div class="important-list-item" onclick="openDay('${key}')">
+                <div class="important-list-item-date">⭐ ${escapeHTML(formatShortDate(date))}</div>
+                <div class="important-list-item-title">${escapeHTML(item.title || "Journée importante")}</div>
+            </div>
+        `;
+    }).join("");
+}
+
+
+/* =====================================================
+   VUE DU JOUR
+===================================================== */
+
+function getTodayKey() {
+
+    const today = new Date();
+    today.setHours(0,0,0,0);
+
+    if(today < START_DATE) {
+        return dateKey(START_DATE);
+    }
+
+    if(today > END_DATE) {
+        return dateKey(END_DATE);
+    }
+
+    return dateKey(today);
+}
+
+
+function setView(view) {
+
+    const calendar = document.getElementById("calendar");
+    const dayView = document.getElementById("dayView");
+    const calendarButton = document.getElementById("calendarViewButton");
+    const todayButton = document.getElementById("todayViewButton");
+
+    if(view === "day") {
+        calendar.classList.add("hidden");
+        dayView.classList.add("show");
+        calendarButton.classList.remove("active");
+        todayButton.classList.add("active");
+        renderDayView(getTodayKey());
+    } else {
+        calendar.classList.remove("hidden");
+        dayView.classList.remove("show");
+        calendarButton.classList.add("active");
+        todayButton.classList.remove("active");
+    }
+}
+
+
+function moveDayView(offset) {
+
+    const currentKey = document.getElementById("dayView").dataset.date || getTodayKey();
+    const date = dateFromKey(currentKey);
+    date.setDate(date.getDate() + offset);
+
+    if(!isInPeriod(date)) {
+        return;
+    }
+
+    renderDayView(dateKey(date));
+}
+
+
+function renderDayView(key) {
+
+    const container = document.getElementById("dayView");
+    if(!container) return;
+
+    container.dataset.date = key;
+
+    const date = dateFromKey(key);
+    const holiday = getHolidayDates().has(key);
+    const completed = !!data.completedDays[key];
+    const important = data.importantDays[key];
+    const tasks = holiday ? [] : (data.tasks[key] || []);
+
+    const categoryFor = task => data.categories.find(c => c.id === task.categoryId);
+
+    const taskHTML = tasks.length === 0
+        ? `<div class="empty">${holiday ? "🎉 Cette journée est fériée." : "Aucune tâche pour cette journée."}</div>`
+        : tasks.map((task, index) => {
+            const category = categoryFor(task);
+            return `
+                <div class="day-view-task ${task.completed ? "completed" : ""}" style="border-left-color:${category ? category.color : "#5B50B5"}">
+                    <input type="checkbox" ${task.completed ? "checked" : ""} onchange="toggleDayViewTask('${key}', ${index}, this.checked)">
+                    <span>${escapeHTML(task.text)}</span>
+                    ${category ? `<small class="task-category">${escapeHTML(category.name)}</small>` : ""}
+                    ${task.recurring ? `<small class="recurring-badge">🔁</small>` : ""}
+                    <button class="delete-task" onclick="deleteDayViewTask('${key}', ${index})">×</button>
+                </div>
+            `;
+        }).join("");
+
+    container.innerHTML = `
+        <div class="day-view-grid">
+
+            <div class="day-view-card">
+                <div class="day-view-header">
+                    <div>
+                        <h2 class="day-view-title">${capitalize(formatDate(date))}</h2>
+                        <div class="day-view-subtitle">${important ? "⭐ " + escapeHTML(important.title || "Journée importante") : "Vue de la journée"}</div>
+                    </div>
+
+                    <div class="day-nav">
+                        <button onclick="moveDayView(-1)">‹</button>
+                        <button onclick="renderDayView(getTodayKey())">Aujourd'hui</button>
+                        <button onclick="moveDayView(1)">›</button>
+                    </div>
+                </div>
+
+                <div class="day-view-actions">
+                    <button class="view-button active" onclick="openDay('${key}')">
+                        ✏️ Ouvrir la journée
+                    </button>
+                </div>
+
+                <div class="day-completion">
+                    <label class="completion-label">
+                        <input type="checkbox" ${completed ? "checked" : ""} ${holiday || date.getDay() === 0 || date.getDay() === 6 ? "disabled" : ""} onchange="toggleDayViewCompletion('${key}', this.checked)">
+                        <span>${holiday ? "🎉 Jour férié — hors calcul" : (date.getDay() === 0 || date.getDay() === 6 ? "🏖️ Week-end — hors calcul" : "Journée terminée")}</span>
+                    </label>
+                </div>
+
+                <div>
+                    ${taskHTML}
+                </div>
+            </div>
+
+            <div class="important-panel">
+                <div class="important-list">
+                    <h3>⭐ Jours importants</h3>
+                    ${renderImportantDaysList()}
+                </div>
+            </div>
+
+        </div>
+    `;
+}
+
+
+function toggleDayViewTask(key, index, checked) {
+
+    if(!data.tasks[key] || !data.tasks[key][index]) return;
+
+    data.tasks[key][index].completed = checked;
+    saveData();
+    renderCalendar();
+    renderDayView(key);
+}
+
+
+function deleteDayViewTask(key, index) {
+
+    if(!data.tasks[key]) return;
+
+    data.tasks[key].splice(index, 1);
+
+    if(data.tasks[key].length === 0) {
+        delete data.tasks[key];
+    }
+
+    saveData();
+    renderCalendar();
+    renderDayView(key);
+}
+
+
+function toggleDayViewCompletion(key, checked) {
+
+    const date = dateFromKey(key);
+    const weekend = date.getDay() === 0 || date.getDay() === 6;
+
+    if(getHolidayDates().has(key) || weekend) return;
+
+    if(checked) {
+        data.completedDays[key] = true;
+    } else {
+        delete data.completedDays[key];
+    }
+
+    saveData();
+    renderCalendar();
+    updateTracking();
+    renderDayView(key);
+}
+
+
+/* =====================================================
+   MODE SOMBRE
+===================================================== */
+
+function applyDarkMode() {
+
+    document.body.classList.toggle("dark", !!data.darkMode);
+
+    const button = document.getElementById("darkModeButton");
+
+    if(button) {
+        button.innerText = data.darkMode ? "☀️ Mode clair" : "🌙 Mode sombre";
+    }
+}
+
+
+function toggleDarkMode() {
+
+    data.darkMode = !data.darkMode;
+    saveData();
+    applyDarkMode();
+}
+
+
+/* =====================================================
    FERMER EN CLIQUANT À L'EXTÉRIEUR
 ===================================================== */
 
@@ -5918,7 +6945,9 @@ document.addEventListener(
 
 loadData();
 
+applyDarkMode();
 renderCalendar();
+renderImportantDaysSummary();
 
 </script>
 
