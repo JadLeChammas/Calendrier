@@ -12,2023 +12,1773 @@
 
     <title>Mon Planning</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
 
     <style>
 
-        /* =====================================================
-           RESET
-        ===================================================== */
-
-        * {
-            box-sizing: border-box;
-        }
-
-
-        body {
-
-            margin: 0;
-
-            font-family:
-                -apple-system,
-                BlinkMacSystemFont,
-                "Segoe UI",
-                Roboto,
-                Arial,
-                sans-serif;
-
-            background: #f6f6fb;
-
-            color: #20205c;
-
-        }
-
-
-        button,
-        input,
-        select {
-
-            font-family: inherit;
-
-        }
-
-
-        button {
-
-            cursor: pointer;
-
-        }
-
-
-        /* =====================================================
-           HEADER
-        ===================================================== */
-
-        header {
-
-            height: 72px;
-
-            background: white;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            padding: 0 35px;
-
-            border-bottom:
-                1px solid #e8e7f0;
-
-            position: sticky;
-
-            top: 0;
-
-            z-index: 50;
-
-        }
-
-
-        .logo {
-
-            font-size: 24px;
-
-            font-weight: 700;
-
-            color: #40379b;
-
-        }
-
-
-        .settings-button {
-
-            background: #f0effc;
-
-            color: #40379b;
-
-            border: none;
-
-            border-radius: 9px;
-
-            padding: 10px 15px;
-
-            font-size: 14px;
-
-            font-weight: 600;
-
-            transition: .15s;
-
-        }
-
-
-        .settings-button:hover {
-
-            background: #e5e3fa;
-
-        }
-
-
-        /* =====================================================
-           MAIN
-        ===================================================== */
-
-        main {
-
-            max-width: 1450px;
-
-            margin: auto;
-
-            padding: 35px;
-
-        }
-
-
-        .page-header {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: flex-end;
-
-            margin-bottom: 25px;
-
-            gap: 20px;
-
-        }
-
-
-        .page-title h1 {
-
-            margin: 0;
-
-            font-size: 34px;
-
-            color: #20205c;
-
-        }
-
-
-        .page-title p {
-
-            margin: 7px 0 0;
-
-            color: #7c7c89;
-
-            font-size: 15px;
-
-        }
-
-
-        .stats {
-
-            background: #ecebfc;
-
-            color: #40379b;
-
-            padding: 12px 18px;
-
-            border-radius: 10px;
-
-            font-weight: 600;
-
-            white-space: nowrap;
-
-        }
-
-
-        /* =====================================================
-           TRACKING DASHBOARD
-        ===================================================== */
-
-        .tracking-dashboard {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap: 16px;
-
-            margin-bottom: 28px;
-
-        }
-
-
-        .tracking-card {
-
-            background: white;
-
-            border-radius: 13px;
-
-            padding: 18px 20px;
-
-            border:
-                1px solid #e7e6ef;
-
-            box-shadow:
-                0 3px 12px
-                rgba(30, 30, 80, .05);
-
-        }
-
-
-        .tracking-title {
-
-            font-size: 13px;
-
-            color: #888894;
-
-            font-weight: 600;
-
-            margin-bottom: 7px;
-
-        }
-
-
-        .tracking-number {
-
-            font-size: 27px;
-
-            font-weight: 750;
-
-            color: #40379b;
-
-        }
-
-
-        .tracking-remaining {
-
-            margin-top: 5px;
-
-            font-size: 12px;
-
-            color: #888894;
-
-        }
-
-
-        .tracking-progress {
-
-            height: 5px;
-
-            background: #eeeeF6;
-
-            border-radius: 10px;
-
-            margin-top: 12px;
-
-            overflow: hidden;
-
-        }
-
-
-        .tracking-progress-bar {
-
-            height: 100%;
-
-            background: #4b40a6;
-
-            border-radius: 10px;
-
-            transition: width .25s;
-
-        }
-
-
-        /* =====================================================
-           CALENDAR
-        ===================================================== */
-
-        .months {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(3, minmax(300px, 1fr));
-
-            gap: 24px;
-
-        }
-
-
-        .month {
-
-            background: white;
-
-            border-radius: 14px;
-
-            padding: 18px;
-
-            box-shadow:
-                0 3px 12px
-                rgba(30, 30, 80, .06);
-
-            border:
-                1px solid #e8e7ef;
-
-        }
-
-
-        .month-header {
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            margin-bottom: 15px;
-
-        }
-
-
-        .month-header h2 {
-
-            margin: 0;
-
-            font-size: 19px;
-
-            color: #40379b;
-
-        }
-
-
-        .month-header span {
-
-            font-size: 18px;
-
-        }
-
-
-        .weekdays {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(7, 1fr);
-
-            gap: 3px;
-
-            margin-bottom: 4px;
-
-        }
-
-
-        .weekday {
-
-            text-align: center;
-
-            font-size: 11px;
-
-            font-weight: 600;
-
-            color: #8a8a96;
-
-            padding: 5px 0;
-
-        }
-
-
-        .weekday:first-child,
-        .weekday:last-child {
-
-            color: #d34b4b;
-
-        }
-
-
-        .days {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(7, 1fr);
-
-            gap: 3px;
-
-        }
-
-
-        .day {
-
-            min-height: 105px;
-
-            border:
-                1px solid #ededf2;
-
-            border-radius: 7px;
-
-            padding: 6px;
-
-            background: #fff;
-
-            cursor: pointer;
-
-            position: relative;
-
-            overflow: hidden;
-
-            transition: .15s;
-
-        }
-
-
-        /* =====================================================
-           WEEK-END
-        ===================================================== */
-
-        .day.weekend {
-
-            background: #f5f5f8;
-
-            border-color: #e2e2e8;
-
-        }
-
-
-        .day.weekend .day-number {
-
-            color: #777783;
-
-        }
-
-
-        .day.weekend:hover {
-
-            border-color: #aaa9b8;
-
-            background: #eeeeF3;
-
-        }
-
-
-        .day:hover {
-
-            border-color: #7469c4;
-
-            background: #fcfcff;
-
-        }
-
-
-        .day.empty {
-
-            border: none;
-
-            background: transparent;
-
-            cursor: default;
-
-        }
-
-
-        .day.outside {
-
-            background: #f4f4f6;
-
-            color: #b7b7be;
-
-            cursor: default;
-
-        }
-
-
-        .day-number {
-
-            font-size: 12px;
-
-            font-weight: 600;
-
-            margin-bottom: 4px;
-
-        }
-
-
-        /* =====================================================
-           COMPLETED DAY
-        ===================================================== */
-
-        .day.completed-day {
-
-            background: #eeeefd;
-
-            border:
-                2px solid #4b40a6;
-
-        }
-
-
-        .day.completed-day::after {
-
-            content: "✓";
-
-            position: absolute;
-
-            top: 5px;
-
-            right: 6px;
-
-            width: 20px;
-
-            height: 20px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            border-radius: 50%;
-
-            background: #4b40a6;
-
-            color: white;
-
-            font-size: 12px;
-
-            font-weight: 700;
-
-        }
-
-
-        .day.completed-day .day-number {
-
-            color: #4b40a6;
-
-        }
-
-
-        /* =====================================================
-           HOLIDAY
-        ===================================================== */
-
-        .day.holiday {
-
-            background: #fff8f8;
-
-            border-color: #f0cccc;
-
-            cursor: not-allowed;
-
-        }
-
-
-        .day.weekend.holiday {
-
-            background: #fff8f8;
-
-            border-color: #f0cccc;
-
-        }
-
-
-        .holiday-label {
-
-            font-size: 9px;
-
-            color: #d94b4b;
-
-            font-weight: 700;
-
-            margin-bottom: 4px;
-
-        }
-
-
-        /* =====================================================
-           TASK LINES
-        ===================================================== */
-
-        .task-line {
-
-            width: 100%;
-
-            height: 18px;
-
-            margin-top: 3px;
-
-            border-radius: 4px;
-
-            padding: 2px 5px;
-
-            font-size: 9px;
-
-            color: white;
-
-            font-weight: 600;
-
-            overflow: hidden;
-
-            white-space: nowrap;
-
-            text-overflow: ellipsis;
-
-            border-left:
-                3px solid
-                rgba(0,0,0,.18);
-
-        }
-
-
-        /* =====================================================
-           MODALS
-        ===================================================== */
-
-        .overlay {
-
-            position: fixed;
-
-            inset: 0;
-
-            background:
-                rgba(25, 25, 60, .32);
-
-            display: none;
-
-            align-items: center;
-
-            justify-content: center;
-
-            z-index: 100;
-
-            padding: 20px;
-
-        }
-
-
-        .overlay.open {
-
-            display: flex;
-
-        }
-
-
-        .modal {
-
-            width:
-                min(620px, 92vw);
-
-            max-height: 88vh;
-
-            overflow-y: auto;
-
-            background: white;
-
-            border-radius: 16px;
-
-            padding: 25px;
-
-            box-shadow:
-                0 20px 60px
-                rgba(0,0,0,.2);
-
-        }
-
-
-        .modal-header {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            margin-bottom: 22px;
-
-        }
-
-
-        .modal-header h2 {
-
-            margin: 0;
-
-            color: #40379b;
-
-            font-size: 21px;
-
-        }
-
-
-        .close {
-
-            width: 34px;
-
-            height: 34px;
-
-            border: none;
-
-            border-radius: 50%;
-
-            background: #efeffa;
-
-            color: #40379b;
-
-            font-size: 20px;
-
-        }
-
-
-        /* =====================================================
-           TASK LIST
-        ===================================================== */
-
-        .task-list {
-
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 9px;
-
-            margin-bottom: 18px;
-
-        }
-
-
-        .task-item {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 10px;
-
-            background: #f7f7fb;
-
-            border-radius: 8px;
-
-            padding: 10px;
-
-            border-left:
-                4px solid #5b50b5;
-
-        }
-
-
-        .task-item input[type="checkbox"] {
-
-            width: 18px;
-
-            height: 18px;
-
-            accent-color: #4b40a6;
-
-        }
-
-
-        .task-name {
-
-            flex: 1;
-
-            font-size: 14px;
-
-        }
-
-
-        .task-item.completed .task-name {
-
-            text-decoration: line-through;
-
-            color: #999;
-
-        }
-
-
-        .task-category {
-
-            font-size: 11px;
-
-            color: #777;
-
-            background: white;
-
-            padding: 4px 7px;
-
-            border-radius: 5px;
-
-        }
-
-
-        .recurring-badge {
-
-            font-size: 10px;
-
-            color: #4b40a6;
-
-            background: #ecebfc;
-
-            padding: 4px 7px;
-
-            border-radius: 5px;
-
-        }
-
-
-        .delete-task {
-
-            background: transparent;
-
-            border: none;
-
-            color: #aaa;
-
-            font-size: 18px;
-
-        }
-
-
-        .delete-task:hover {
-
-            color: #d34b4b;
-
-        }
-
-
-        /* =====================================================
-           ADD TASK
-        ===================================================== */
-
-        .add-task-form {
-
-            background: #f7f7fc;
-
-            border-radius: 10px;
-
-            padding: 15px;
-
-            margin-top: 15px;
-
-        }
-
-
-        .form-group {
-
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 6px;
-
-            margin-bottom: 12px;
-
-        }
-
-
-        .form-group label {
-
-            font-size: 12px;
-
-            font-weight: 600;
-
-            color: #666;
-
-        }
-
-
-        .form-group input,
-        .form-group select {
-
-            padding: 11px;
-
-            border:
-                1px solid #ddd;
-
-            border-radius: 7px;
-
-            background: white;
-
-            outline: none;
-
-        }
-
-
-        .form-group input:focus,
-        .form-group select:focus {
-
-            border-color: #5b50b5;
-
-        }
-
-
-        /* =====================================================
-           RECURRENCE
-        ===================================================== */
-
-        .recurrence-box {
-
-            background: white;
-
-            border:
-                1px solid #e2e1eb;
-
-            border-radius: 8px;
-
-            padding: 12px;
-
-            margin-top: 8px;
-
-        }
-
-
-        .recurrence-check {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 8px;
-
-            font-size: 13px;
-
-            font-weight: 600;
-
-        }
-
-
-        .recurrence-options {
-
-            display: none;
-
-            margin-top: 12px;
-
-            grid-template-columns:
-                1fr 1fr;
-
-            gap: 10px;
-
-        }
-
-
-        .recurrence-options.show {
-
-            display: grid;
-
-        }
-
-
-        .add-button {
-
-            width: 100%;
-
-            border: none;
-
-            background: #4b40a6;
-
-            color: white;
-
-            padding: 12px;
-
-            border-radius: 8px;
-
-            font-weight: 600;
-
-            margin-top: 5px;
-
-        }
-
-
-        .add-button:hover {
-
-            background: #3f3596;
-
-        }
-
-
-        /* =====================================================
-           SETTINGS
-        ===================================================== */
-
-        .settings-description {
-
-            color: #777;
-
-            font-size: 14px;
-
-            margin-bottom: 22px;
-
-            line-height: 1.5;
-
-        }
-
-
-        .settings-section {
-
-            margin-bottom: 30px;
-
-        }
-
-
-        .settings-section h3 {
-
-            margin-bottom: 10px;
-
-        }
-
-
-        /* =====================================================
-           HOLIDAY FORM
-        ===================================================== */
-
-        .holiday-form {
-
-            background: #f7f7fc;
-
-            border-radius: 10px;
-
-            padding: 15px;
-
-            margin-bottom: 15px;
-
-        }
-
-
-        .form-row {
-
-            display: grid;
-
-            grid-template-columns:
-                1fr 1fr auto;
-
-            gap: 10px;
-
-            align-items: end;
-
-        }
-
-
-        .add-holiday {
-
-            height: 40px;
-
-            padding: 0 18px;
-
-            border: none;
-
-            border-radius: 7px;
-
-            background: #4b40a6;
-
-            color: white;
-
-            font-weight: 600;
-
-        }
-
-
-        /* =====================================================
-           HOLIDAY LIST
-        ===================================================== */
-
-        .holiday-list {
-
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 9px;
-
-        }
-
-
-        .holiday-item {
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            gap: 15px;
-
-            border:
-                1px solid #e5e5ed;
-
-            border-radius: 9px;
-
-            padding: 13px 15px;
-
-            background: white;
-
-        }
-
-
-        .holiday-info {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 10px;
-
-        }
-
-
-        .holiday-dates {
-
-            font-weight: 600;
-
-            font-size: 14px;
-
-        }
-
-
-        .holiday-duration {
-
-            font-size: 12px;
-
-            color: #999;
-
-            margin-top: 3px;
-
-        }
-
-
-        .holiday-actions {
-
-            display: flex;
-
-            gap: 5px;
-
-        }
-
-
-        .small-button {
-
-            border: none;
-
-            border-radius: 6px;
-
-            padding: 7px 10px;
-
-            font-size: 12px;
-
-        }
-
-
-        .edit-button {
-
-            background: #eeeefe;
-
-            color: #4b40a6;
-
-        }
-
-
-        .delete-button {
-
-            background: #fff0f0;
-
-            color: #d34b4b;
-
-        }
-
-
-        /* =====================================================
-           CATEGORIES
-        ===================================================== */
-
-        .category-list {
-
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 8px;
-
-            margin-bottom: 12px;
-
-        }
-
-
-        .category-item {
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            padding: 10px 12px;
-
-            background: #f8f8fc;
-
-            border-radius: 8px;
-
-        }
-
-
-        .category-left {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 10px;
-
-        }
-
-
-        .category-color {
-
-            width: 18px;
-
-            height: 18px;
-
-            border-radius: 5px;
-
-        }
-
-
-        .category-name {
-
-            font-size: 14px;
-
-            font-weight: 600;
-
-        }
-
-
-        .category-form {
-
-            display: flex;
-
-            gap: 8px;
-
-        }
-
-
-        .category-form input[type="text"] {
-
-            flex: 1;
-
-            padding: 10px;
-
-            border:
-                1px solid #ddd;
-
-            border-radius: 7px;
-
-        }
-
-
-        .category-form input[type="color"] {
-
-            width: 45px;
-
-            padding: 2px;
-
-            border:
-                1px solid #ddd;
-
-            border-radius: 7px;
-
-            background: white;
-
-        }
-
-
-        .category-form button {
-
-            border: none;
-
-            background: #4b40a6;
-
-            color: white;
-
-            border-radius: 7px;
-
-            padding: 0 15px;
-
-        }
-
-
-        /* =====================================================
-           EMPTY
-        ===================================================== */
-
-        .empty {
-
-            text-align: center;
-
-            padding: 25px;
-
-            color: #999;
-
-            background: #fafafd;
-
-            border-radius: 9px;
-
-        }
-
-
-        /* =====================================================
-           DAY COMPLETION
-        ===================================================== */
-
-        .day-completion {
-            margin-bottom: 20px;
-            padding: 14px 16px;
-            background: #f5f4fc;
-            border-radius: 10px;
-            border: 1px solid #e4e2f2;
-        }
-
-        .completion-label {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #40379b;
-            cursor: pointer;
-        }
-
-        .completion-label input {
-            width: 19px;
-            height: 19px;
-            accent-color: #4b40a6;
-            cursor: pointer;
-        }
-
-        .completion-label input:disabled {
-            cursor: not-allowed;
-        }
-
-
-        .completion-label input:disabled + span {
-
-            color: #888894;
-
-        }
-
-
-        /* =====================================================
-           TÂCHE SUR TOUTE LA SEMAINE
-        ===================================================== */
-
-        .week-task-box {
-
-            margin-top: 12px;
-
-            padding: 12px;
-
-            background: #f8f8fc;
-
-            border: 1px solid #e2e1eb;
-
-            border-radius: 8px;
-
-        }
-
-
-        .week-task-check {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 8px;
-
-            font-size: 13px;
-
-            font-weight: 600;
-
-            color: #40379b;
-
-        }
-
-
-        .week-task-check input {
-
-            width: 18px;
-
-            height: 18px;
-
-            accent-color: #4b40a6;
-
-        }
-
-
-        .week-task-help {
-
-            margin: 7px 0 0 26px;
-
-            font-size: 11px;
-
-            color: #888894;
-
-        }
-
-
-        /* =====================================================
-           VIEW CONTROLS
-        ===================================================== */
-
-        .view-controls {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .view-button {
-            border: none;
-            border-radius: 9px;
-            padding: 10px 14px;
-            background: #f0effc;
-            color: #40379b;
-            font-size: 13px;
-            font-weight: 700;
-        }
-
-        .view-button.active {
-            background: #4b40a6;
-            color: white;
-        }
-
-        .day-view {
-            display: none;
-            margin-top: 4px;
-        }
-
-        .day-view.show {
-            display: block;
-        }
-
-        .calendar-view.hidden {
-            display: none;
-        }
-
-        .day-view-grid {
-            display: grid;
-            grid-template-columns: minmax(0, 1.7fr) minmax(280px, .8fr);
-            gap: 20px;
-        }
-
-        .day-view-card,
-        .important-panel {
-            background: white;
-            border: 1px solid #e7e6ef;
-            border-radius: 15px;
-            padding: 22px;
-            box-shadow: 0 3px 12px rgba(30,30,80,.05);
-        }
-
-        .day-view-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 15px;
-            margin-bottom: 18px;
-        }
-
-        .day-view-title {
-            margin: 0;
-            color: #20205c;
-            font-size: 25px;
-        }
-
-        .day-view-subtitle {
-            color: #888894;
-            font-size: 13px;
-            margin-top: 4px;
-        }
-
-        .day-nav {
-            display: flex;
-            gap: 7px;
-        }
-
-        .day-nav button {
-            border: 1px solid #e2e1eb;
-            background: #f8f8fc;
-            color: #40379b;
-            border-radius: 8px;
-            padding: 8px 10px;
-            font-weight: 700;
-        }
-
-        .day-view-actions {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 18px;
-        }
-
-        .day-view-task {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px;
-            border-radius: 9px;
-            background: #f7f7fb;
-            margin-bottom: 8px;
-            border-left: 4px solid #5b50b5;
-        }
-
-        .day-view-task span {
-            flex: 1;
-            font-size: 14px;
-        }
-
-        .day-view-task.completed span {
-            text-decoration: line-through;
-            color: #999;
-        }
-
-        .planning-highlights {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 10px;
-            margin-bottom: 22px;
-        }
-
-        .today-summary-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 11px 13px;
-            border-radius: 10px;
-            background: #f5f3ff;
-            border: 1px solid #dcd7fa;
-            cursor: pointer;
-            min-height: 64px;
-        }
-
-        .today-summary-item:hover {
-            border-color: #aaa2e8;
-        }
-
-        .today-summary-icon {
-            font-size: 20px;
-            width: 28px;
-            text-align: center;
-        }
-
-        .today-summary-date {
-            font-weight: 700;
-            color: #40379b;
-            font-size: 12px;
-        }
-
-        .today-summary-title {
-            font-size: 13px;
-            font-weight: 700;
-            color: #302b70;
-            margin-top: 2px;
-        }
-
-        .today-summary-tasks {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 4px;
-            margin-top: 5px;
-        }
-
-        .today-summary-task {
-            font-size: 10px;
-            padding: 3px 6px;
-            border-radius: 5px;
-            color: white;
-            font-weight: 650;
-            max-width: 150px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .today-summary-empty {
-            color: #888894;
-            font-size: 11px;
-            margin-top: 4px;
-        }
-
-        .important-days-summary {
-            display: contents;
-        }
-
-        .important-summary-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 11px 13px;
-            border-radius: 10px;
-            background: #fffaf0;
-            border: 1px solid #f0dfb4;
-            cursor: pointer;
-        }
-
-        .important-summary-item:hover {
-            border-color: #d7b86a;
-        }
-
-        .important-summary-date {
-            font-weight: 700;
-            color: #9a6a12;
-            font-size: 12px;
-        }
-
-        .important-summary-title {
-            font-size: 13px;
-            font-weight: 650;
-            color: #5f4b1e;
-        }
-
-        .important-day {
-            background: #fffaf0 !important;
-            border-color: #e4c76e !important;
-        }
-
-        .important-day .day-number {
-            color: #9a6a12;
-        }
-
-        .important-star {
-            position: absolute;
-            top: 4px;
-            right: 5px;
-            font-size: 12px;
-        }
-
-        .important-editor {
-            margin-bottom: 20px;
-            padding: 14px 16px;
-            background: #fffaf0;
-            border-radius: 10px;
-            border: 1px solid #f0dfb4;
-        }
-
-        .important-editor-label {
-            display: flex;
-            align-items: center;
-            gap: 9px;
-            font-size: 14px;
-            font-weight: 700;
-            color: #8a641b;
-            margin-bottom: 10px;
-            cursor: pointer;
-        }
-
-        .important-editor input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            accent-color: #c79428;
-        }
-
-        .important-title-input {
-            width: 100%;
-            padding: 10px 11px;
-            border: 1px solid #e4d5ac;
-            border-radius: 7px;
-            background: white;
-            outline: none;
-        }
-
-        .important-title-input:focus {
-            border-color: #c79428;
-        }
-
-        .important-list {
-            display: flex;
-            flex-direction: column;
-            gap: 9px;
-        }
-
-        .important-list h3 {
-            margin: 0 0 8px;
-            color: #40379b;
-            font-size: 17px;
-        }
-
-        .important-list-item {
-            padding: 12px 13px;
-            border-radius: 9px;
-            background: #fffaf0;
-            border: 1px solid #f0dfb4;
-            cursor: pointer;
-        }
-
-        .important-list-item-date {
-            font-size: 11px;
-            font-weight: 700;
-            color: #9a6a12;
-            margin-bottom: 3px;
-        }
-
-        .important-list-item-title {
-            font-size: 13px;
-            font-weight: 700;
-            color: #5f4b1e;
-        }
-
-        .multi-day-box {
-            margin-top: 12px;
-            padding: 12px;
-            background: white;
-            border: 1px solid #e2e1eb;
-            border-radius: 8px;
-        }
-
-        .multi-day-check {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 13px;
-            font-weight: 600;
-            color: #40379b;
-        }
-
-        .multi-day-check input {
-            width: 18px;
-            height: 18px;
-            accent-color: #4b40a6;
-        }
-
-        .multi-day-options {
-            display: none;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 12px;
-        }
-
-        .multi-day-options.show {
-            display: grid;
-        }
-
-        .multi-day-help {
-            margin: 7px 0 0 26px;
-            font-size: 11px;
-            color: #888894;
-        }
-
-        /* =====================================================
-           DARK MODE
-        ===================================================== */
-
-        body.dark {
-            background: #11111a;
-            color: #eeeeF7;
-        }
-
-        body.dark header {
-            background: #191923;
-            border-bottom-color: #2d2d3b;
-        }
-
-        body.dark .logo,
-        body.dark .page-title h1,
-        body.dark .day-view-title {
-            color: #d9d5ff;
-        }
-
-        body.dark .page-title p,
-        body.dark .tracking-title,
-        body.dark .tracking-remaining,
-        body.dark .weekday,
-        body.dark .day-view-subtitle {
-            color: #a2a2b1;
-        }
-
-        body.dark .settings-button,
-        body.dark .view-button,
-        body.dark .day-nav button {
-            background: #29283a;
-            color: #d8d3ff;
-            border-color: #3a394d;
-        }
-
-        body.dark .view-button.active {
-            background: #5b50b5;
-            color: white;
-        }
-
-        body.dark .stats {
-            background: #29283a;
-            color: #d8d3ff;
-        }
-
-        body.dark .tracking-card,
-        body.dark .month,
-        body.dark .day-view-card,
-        body.dark .important-panel,
-        body.dark .modal {
-            background: #1b1b26;
-            border-color: #30303f;
-            box-shadow: 0 3px 14px rgba(0,0,0,.25);
-        }
-
-        body.dark .month-header h2,
-        body.dark .modal-header h2,
-        body.dark .important-list h3 {
-            color: #bcb6ff;
-        }
-
-        body.dark .day {
-            background: #1d1d28;
-            border-color: #30303d;
-            color: #eeeeF7;
-        }
-
-        body.dark .day:hover {
-            background: #252535;
-            border-color: #6d63bd;
-        }
-
-        body.dark .day.weekend,
-        body.dark .day.outside {
-            background: #171720;
-            border-color: #292934;
-        }
-
-        body.dark .day.completed-day {
-            background: #292746;
-        }
-
-        body.dark .day.holiday {
-            background: #2b1c20;
-            border-color: #66363e;
-        }
-
-        body.dark .day.empty {
-            background: transparent;
-            border: none;
-        }
-
-        body.dark .task-item,
-        body.dark .day-view-task,
-        body.dark .add-task-form,
-        body.dark .holiday-form,
-        body.dark .category-item,
-        body.dark .recurrence-box,
-        body.dark .week-task-box {
-            background: #22222e;
-            border-color: #353546;
-        }
-
-        body.dark .form-group input,
-        body.dark .form-group select,
-        body.dark .category-form input[type="text"],
-        body.dark .category-form input[type="color"],
-        body.dark .important-title-input {
-            background: #171720;
-            color: #eeeeF7;
-            border-color: #3a3a4b;
-        }
-
-        body.dark .close {
-            background: #2a2939;
-            color: #d8d3ff;
-        }
-
-        body.dark .task-category {
-            background: #2b2b38;
-            color: #c7c7d2;
-        }
-
-        body.dark .empty {
-            background: #20202b;
-            color: #a2a2b1;
-        }
-
-        body.dark .day-completion {
-            background: #27263a;
-            border-color: #3a3854;
-        }
-
-        body.dark .completion-label {
-            color: #c6c0ff;
-        }
-
-        body.dark .important-day {
-            background: #2b2518 !important;
-            border-color: #80682b !important;
-        }
-
-        body.dark .important-editor,
-        body.dark .important-list-item,
-        body.dark .important-summary-item {
-            background: #2b2518;
-            border-color: #5c4d27;
-        }
-
-        body.dark .important-editor-label,
-        body.dark .important-summary-date,
-        body.dark .important-list-item-date {
-            color: #e0ba55;
-        }
-
-        body.dark .important-summary-title,
-        body.dark .important-list-item-title {
-            color: #e8d8a9;
-        }
-
-        body.dark .today-summary-item {
-            background: #29264a;
-            border-color: #514b82;
-        }
-
-        body.dark .today-summary-item:hover {
-            border-color: #756eb5;
-        }
-
-        body.dark .today-summary-date {
-            color: #b9b3ff;
-        }
-
-        body.dark .today-summary-title {
-            color: #e4e1ff;
-        }
-
-        @media(max-width: 800px) {
-            .day-view-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* =====================================================
-           RESPONSIVE
-        ===================================================== */
-
-        @media(max-width: 1100px) {
-
-            .months {
-
-                grid-template-columns:
-                    repeat(
-                        2,
-                        minmax(300px, 1fr)
-                    );
-
-            }
-
-        }
-
-
-        @media(max-width: 700px) {
-
-            header {
-
-                padding: 0 18px;
-
-            }
-
-
-            main {
-
-                padding: 20px;
-
-            }
-
-
-            .months {
-
-                grid-template-columns: 1fr;
-
-            }
-
-
-            .tracking-dashboard {
-
-                grid-template-columns: 1fr;
-
-            }
-
-
-            .form-row {
-
-                grid-template-columns: 1fr;
-
-            }
-
-
-            .page-header {
-
-                align-items: flex-start;
-
-                gap: 15px;
-
-                flex-direction: column;
-
-            }
-
-
-            .category-form {
-
-                flex-wrap: wrap;
-
-            }
-
-
-            .category-form input[type="text"] {
-
-                width: 100%;
-
-                flex: none;
-
-            }
-
-        }
+/* =====================================================
+   THÈME — couleurs (clair / sombre)
+===================================================== */
+
+:root {
+    --bg: #f5f3ee;
+    --bg-glow: #ebe7ff;
+    --surface: #ffffff;
+    --surface-2: #f8f7f3;
+    --surface-3: #f1efe9;
+    --border: #e8e4da;
+    --border-strong: #d9d4c7;
+    --ink: #1c1930;
+    --ink-2: #3a3654;
+    --muted: #7d798c;
+    --accent: #5a48d8;
+    --accent-hover: #4a39c4;
+    --accent-ink: #4334b5;
+    --accent-soft: #eeebff;
+    --accent-soft-2: #e3defe;
+    --danger: #d4483f;
+    --danger-soft: #fdf0ee;
+    --danger-border: #f3cdc8;
+    --gold: #a8760f;
+    --gold-ink: #6a4c12;
+    --gold-soft: #fff7e6;
+    --gold-border: #f0dcaa;
+    --weekend: #f6f4ef;
+    --shadow-sm: 0 1px 2px rgba(28, 25, 48, .04), 0 2px 8px rgba(28, 25, 48, .04);
+    --shadow-md: 0 2px 4px rgba(28, 25, 48, .04), 0 10px 30px rgba(28, 25, 48, .07);
+    --shadow-lg: 0 30px 80px rgba(20, 16, 50, .25);
+    --radius: 18px;
+    --radius-sm: 10px;
+    --font-display: "Fraunces", Georgia, serif;
+    --font-body: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+body.dark {
+    --bg: #0f0e15;
+    --bg-glow: #1d1a3a;
+    --surface: #18171f;
+    --surface-2: #1f1e29;
+    --surface-3: #262532;
+    --border: #2b2a37;
+    --border-strong: #3a3848;
+    --ink: #eeecf8;
+    --ink-2: #cfcbe4;
+    --muted: #9a97ad;
+    --accent: #7c6cf0;
+    --accent-hover: #8e80f5;
+    --accent-ink: #bdb3ff;
+    --accent-soft: #252140;
+    --accent-soft-2: #2f2a52;
+    --danger: #f07a70;
+    --danger-soft: #2c1a1c;
+    --danger-border: #5e3036;
+    --gold: #e3b955;
+    --gold-ink: #ecd9a6;
+    --gold-soft: #282214;
+    --gold-border: #5a4a23;
+    --weekend: #15141c;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, .3);
+    --shadow-md: 0 8px 26px rgba(0, 0, 0, .35);
+    --shadow-lg: 0 30px 80px rgba(0, 0, 0, .6);
+}
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-body);
+    background:
+        radial-gradient(1200px 500px at 85% -10%, var(--bg-glow), transparent 60%),
+        var(--bg);
+    background-attachment: fixed;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    transition: background-color .25s, color .25s;
+}
+
+button,
+input,
+select {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+header {
+    height: 70px;
+    background: color-mix(in srgb, var(--surface) 78%, transparent);
+    backdrop-filter: saturate(160%) blur(14px);
+    -webkit-backdrop-filter: saturate(160%) blur(14px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 36px;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+.logo {
+    font-family: var(--font-display);
+    font-size: 23px;
+    font-weight: 600;
+    letter-spacing: -.01em;
+    color: var(--ink);
+}
+
+.settings-button {
+    background: var(--surface);
+    color: var(--ink-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 9px 16px;
+    font-size: 13.5px;
+    font-weight: 700;
+    transition: background .15s, border-color .15s, transform .15s;
+}
+
+.settings-button:hover {
+    background: var(--surface-2);
+    border-color: var(--border-strong);
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+main {
+    max-width: 1450px;
+    margin: auto;
+    padding: 40px 36px 60px;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 28px;
+    gap: 20px;
+}
+
+.page-title h1 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 46px;
+    font-weight: 600;
+    letter-spacing: -.025em;
+    line-height: 1.05;
+    color: var(--ink);
+}
+
+.page-title p {
+    margin: 10px 0 0;
+    color: var(--muted);
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.stats {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--ink-2);
+    padding: 10px 16px;
+    border-radius: 999px;
+    font-size: 13.5px;
+    font-weight: 700;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+
+
+/* =====================================================
+   VOYAGE — COMPTE À REBOURS
+===================================================== */
+
+.trip-card {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 26px 30px;
+    margin-bottom: 18px;
+    border-radius: var(--radius);
+    color: #fdfbf5;
+    background:
+        radial-gradient(500px 220px at 100% 0%, rgba(255, 255, 255, .14), transparent 70%),
+        linear-gradient(120deg, #0f5132 0%, #13704a 55%, #1b8a5a 100%);
+    box-shadow: var(--shadow-md);
+}
+
+/* bande rouge discrète (drapeau libanais) */
+.trip-card::before,
+.trip-card::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: #e03c31;
+}
+
+.trip-card::before { top: 0; }
+.trip-card::after { bottom: 0; }
+
+.trip-cedar {
+    position: absolute;
+    right: 210px;
+    bottom: -18px;
+    width: 150px;
+    height: 150px;
+    opacity: .13;
+    pointer-events: none;
+}
+
+.trip-main {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+}
+
+.trip-count {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-family: var(--font-display);
+    line-height: 1;
+}
+
+.trip-count-number {
+    font-size: 64px;
+    font-weight: 600;
+    letter-spacing: -.03em;
+    font-variant-numeric: tabular-nums;
+}
+
+.trip-count-unit {
+    font-size: 18px;
+    font-weight: 500;
+    opacity: .85;
+}
+
+.trip-text {
+    border-left: 1px solid rgba(255, 255, 255, .25);
+    padding-left: 22px;
+    min-width: 0;
+}
+
+.trip-kicker {
+    font-size: 11.5px;
+    font-weight: 800;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    opacity: .75;
+}
+
+.trip-title {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 600;
+    margin-top: 4px;
+    overflow-wrap: anywhere;
+}
+
+.trip-date {
+    font-size: 14px;
+    margin-top: 4px;
+    opacity: .85;
+}
+
+.trip-edit {
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+    border: 1px solid rgba(255, 255, 255, .35);
+    background: rgba(255, 255, 255, .12);
+    color: #fff;
+    border-radius: 999px;
+    padding: 10px 18px;
+    font-size: 13.5px;
+    font-weight: 700;
+    transition: background .15s;
+}
+
+.trip-edit:hover {
+    background: rgba(255, 255, 255, .22);
+}
+
+.trip-card.trip-empty {
+    background: var(--surface);
+    color: var(--ink);
+    border: 1.5px dashed var(--border-strong);
+    box-shadow: none;
+}
+
+.trip-card.trip-empty::before,
+.trip-card.trip-empty::after {
+    display: none;
+}
+
+.trip-card.trip-empty .trip-text {
+    border-left: none;
+    padding-left: 0;
+}
+
+.trip-card.trip-empty .trip-edit {
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+.trip-modal-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+.trip-modal-actions .add-button {
+    flex: 1;
+    margin-top: 0;
+}
+
+.trip-remove {
+    border: 1px solid var(--danger-border);
+    background: var(--danger-soft);
+    color: var(--danger);
+    border-radius: var(--radius-sm);
+    padding: 0 16px;
+    font-weight: 700;
+}
+
+.day.trip-day {
+    box-shadow: inset 0 0 0 2px #13704a;
+}
+
+.trip-marker {
+    font-size: 9.5px;
+    font-weight: 800;
+    color: #fff;
+    background: #13704a;
+    border-radius: 5px;
+    padding: 2px 5px;
+    margin-bottom: 3px;
+    display: inline-block;
+}
+
+
+/* =====================================================
+   TRACKING DASHBOARD
+===================================================== */
+
+.tracking-dashboard {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 18px;
+}
+
+.tracking-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+}
+
+.tracking-title {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.tracking-number {
+    font-family: var(--font-display);
+    font-size: 34px;
+    font-weight: 600;
+    letter-spacing: -.02em;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+}
+
+.tracking-remaining {
+    margin-top: 4px;
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 500;
+}
+
+.tracking-progress {
+    height: 8px;
+    background: var(--surface-3);
+    border-radius: 999px;
+    margin-top: 16px;
+    overflow: hidden;
+}
+
+.tracking-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), #8b7bff);
+    border-radius: 999px;
+    transition: width .4s ease;
+}
+
+
+/* =====================================================
+   CALENDAR
+===================================================== */
+
+.months {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(300px, 1fr));
+    gap: 22px;
+}
+
+.month {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+}
+
+.month-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    padding: 0 2px;
+}
+
+.month-header h2 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -.01em;
+    color: var(--ink);
+}
+
+.month-header span {
+    font-size: 16px;
+    opacity: .7;
+}
+
+.weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-bottom: 6px;
+}
+
+.weekday {
+    text-align: center;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .06em;
+    color: var(--muted);
+    padding: 5px 0;
+}
+
+.weekday:first-child,
+.weekday:last-child {
+    color: var(--danger);
+    opacity: .8;
+}
+
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+.day {
+    min-height: 105px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 6px;
+    background: var(--surface);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: border-color .15s, background .15s, transform .15s, box-shadow .15s;
+}
+
+.day:hover {
+    border-color: var(--accent);
+    background: var(--surface);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+
+/* =====================================================
+   WEEK-END
+===================================================== */
+
+.day.weekend {
+    background: var(--weekend);
+    border-color: var(--border);
+}
+
+.day.weekend .day-number {
+    color: var(--muted);
+}
+
+.day.weekend:hover {
+    border-color: var(--border-strong);
+    background: var(--surface-3);
+}
+
+.day.empty {
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: default;
+    box-shadow: none;
+    transform: none;
+}
+
+.day.outside {
+    background: var(--surface-2);
+    color: var(--muted);
+    opacity: .55;
+    cursor: default;
+}
+
+.day-number {
+    font-size: 12.5px;
+    font-weight: 800;
+    margin-bottom: 5px;
+    color: var(--ink-2);
+    font-variant-numeric: tabular-nums;
+}
+
+
+/* =====================================================
+   AUJOURD'HUI
+===================================================== */
+
+.day.today {
+    border: 2px solid var(--accent);
+}
+
+.day.today .day-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 5px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #fff;
+}
+
+
+/* =====================================================
+   COMPLETED DAY
+===================================================== */
+
+.day.completed-day {
+    background: var(--accent-soft);
+    border: 1.5px solid var(--accent);
+}
+
+.day.completed-day::after {
+    content: "✓";
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--accent);
+    color: white;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.day.completed-day .day-number {
+    color: var(--accent-ink);
+}
+
+.day.today.completed-day .day-number {
+    color: #fff;
+}
+
+
+/* =====================================================
+   HOLIDAY
+===================================================== */
+
+.day.holiday {
+    background:
+        repeating-linear-gradient(135deg, transparent 0 7px, color-mix(in srgb, var(--danger) 6%, transparent) 7px 8px),
+        var(--danger-soft);
+    border-color: var(--danger-border);
+    cursor: not-allowed;
+}
+
+.day.weekend.holiday {
+    background:
+        repeating-linear-gradient(135deg, transparent 0 7px, color-mix(in srgb, var(--danger) 6%, transparent) 7px 8px),
+        var(--danger-soft);
+    border-color: var(--danger-border);
+}
+
+.day.holiday:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.holiday-label {
+    font-size: 9.5px;
+    color: var(--danger);
+    font-weight: 800;
+    margin-bottom: 4px;
+}
+
+
+/* =====================================================
+   TASK LINES
+===================================================== */
+
+.task-line {
+    width: 100%;
+    height: 19px;
+    margin-top: 3px;
+    border-radius: 6px;
+    padding: 2px 6px;
+    font-size: 9.5px;
+    line-height: 15px;
+    color: white;
+    font-weight: 700;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    border-left: none;
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .12);
+}
+
+
+/* =====================================================
+   MODALS
+===================================================== */
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(18, 15, 40, .42);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 20px;
+}
+
+.overlay.open {
+    display: flex;
+    animation: fadeIn .18s ease;
+}
+
+.overlay.open .modal {
+    animation: popIn .22s cubic-bezier(.2, .9, .3, 1.2);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes popIn {
+    from { opacity: 0; transform: translateY(10px) scale(.98); }
+    to { opacity: 1; transform: none; }
+}
+
+.modal {
+    width: min(620px, 92vw);
+    max-height: 88vh;
+    overflow-y: auto;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 28px;
+    box-shadow: var(--shadow-lg);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+    gap: 12px;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--ink);
+    font-size: 24px;
+    letter-spacing: -.01em;
+}
+
+.close {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: var(--surface-3);
+    color: var(--ink-2);
+    font-size: 20px;
+    transition: background .15s;
+}
+
+.close:hover {
+    background: var(--accent-soft-2);
+}
+
+
+/* =====================================================
+   TASK LIST
+===================================================== */
+
+.task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 11px 12px;
+    border-left: 4px solid var(--accent);
+}
+
+.task-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent);
+}
+
+.task-name {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.task-item.completed .task-name {
+    text-decoration: line-through;
+    color: var(--muted);
+}
+
+.task-category {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 3px 8px;
+    border-radius: 999px;
+}
+
+.recurring-badge {
+    font-size: 10px;
+    color: var(--accent-ink);
+    background: var(--accent-soft);
+    padding: 4px 7px;
+    border-radius: 999px;
+}
+
+.delete-task {
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-size: 18px;
+    border-radius: 8px;
+    width: 28px;
+    height: 28px;
+}
+
+.delete-task:hover {
+    color: var(--danger);
+    background: var(--danger-soft);
+}
+
+
+/* =====================================================
+   ADD TASK
+===================================================== */
+
+.add-task-form {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 18px;
+    margin-top: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.form-group label {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .02em;
+    color: var(--muted);
+}
+
+.form-group input,
+.form-group select {
+    padding: 11px 12px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    color: var(--ink);
+    font-size: 14px;
+    outline: none;
+    transition: border-color .15s, box-shadow .15s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+
+/* =====================================================
+   RECURRENCE
+===================================================== */
+
+.recurrence-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-top: 8px;
+}
+
+.recurrence-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink-2);
+}
+
+.recurrence-check input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent);
+}
+
+.recurrence-options {
+    display: none;
+    margin-top: 12px;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.recurrence-options.show {
+    display: grid;
+}
+
+.add-button {
+    width: 100%;
+    border: none;
+    background: var(--accent);
+    color: white;
+    padding: 13px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 800;
+    margin-top: 12px;
+    transition: background .15s, transform .1s;
+}
+
+.add-button:hover {
+    background: var(--accent-hover);
+}
+
+.add-button:active {
+    transform: scale(.99);
+}
+
+
+/* =====================================================
+   SETTINGS
+===================================================== */
+
+.settings-description {
+    color: var(--muted);
+    font-size: 14px;
+    margin: 0 0 18px;
+    line-height: 1.55;
+}
+
+.settings-section {
+    margin-bottom: 30px;
+    padding-bottom: 26px;
+    border-bottom: 1px solid var(--border);
+}
+
+.settings-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.settings-section h3 {
+    margin: 0 0 8px;
+    font-size: 17px;
+    color: var(--ink);
+}
+
+
+/* =====================================================
+   HOLIDAY FORM
+===================================================== */
+
+.holiday-form {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 10px;
+    align-items: end;
+}
+
+.form-row .form-group {
+    margin-bottom: 0;
+}
+
+.add-holiday {
+    height: 42px;
+    padding: 0 18px;
+    border: none;
+    border-radius: var(--radius-sm);
+    background: var(--accent);
+    color: white;
+    font-weight: 800;
+}
+
+.add-holiday:hover {
+    background: var(--accent-hover);
+}
+
+
+/* =====================================================
+   HOLIDAY LIST
+===================================================== */
+
+.holiday-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.holiday-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 14px;
+    background: var(--surface);
+}
+
+.holiday-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.holiday-dates {
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.holiday-duration {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 3px;
+}
+
+.holiday-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.small-button {
+    border: none;
+    border-radius: 999px;
+    padding: 7px 12px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.edit-button {
+    background: var(--accent-soft);
+    color: var(--accent-ink);
+}
+
+.delete-button {
+    background: var(--danger-soft);
+    color: var(--danger);
+}
+
+
+/* =====================================================
+   CATEGORIES
+===================================================== */
+
+.category-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.category-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.category-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.category-color {
+    width: 18px;
+    height: 18px;
+    border-radius: 6px;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .08);
+}
+
+.category-name {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.category-form {
+    display: flex;
+    gap: 8px;
+}
+
+.category-form input[type="text"] {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    color: var(--ink);
+    outline: none;
+}
+
+.category-form input[type="text"]:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.category-form input[type="color"] {
+    width: 46px;
+    padding: 3px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+}
+
+.category-form button {
+    border: none;
+    background: var(--accent);
+    color: white;
+    border-radius: var(--radius-sm);
+    padding: 0 16px;
+    font-weight: 800;
+}
+
+
+/* =====================================================
+   EMPTY
+===================================================== */
+
+.empty {
+    text-align: center;
+    padding: 26px;
+    color: var(--muted);
+    background: var(--surface-2);
+    border: 1px dashed var(--border-strong);
+    border-radius: 12px;
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   DAY COMPLETION
+===================================================== */
+
+.day-completion {
+    margin-bottom: 18px;
+    padding: 14px 16px;
+    background: var(--accent-soft);
+    border-radius: 14px;
+    border: 1px solid var(--accent-soft-2);
+}
+
+.completion-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent-ink);
+    cursor: pointer;
+}
+
+.completion-label input {
+    width: 19px;
+    height: 19px;
+    accent-color: var(--accent);
+    cursor: pointer;
+}
+
+.completion-label input:disabled {
+    cursor: not-allowed;
+}
+
+.completion-label input:disabled + span {
+    color: var(--muted);
+}
+
+
+/* =====================================================
+   TÂCHE SUR TOUTE LA SEMAINE
+===================================================== */
+
+.week-task-box {
+    margin-top: 10px;
+    padding: 12px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.week-task-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink-2);
+}
+
+.week-task-check input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent);
+}
+
+.week-task-help {
+    margin: 7px 0 0 26px;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+
+/* =====================================================
+   VIEW CONTROLS
+===================================================== */
+
+.view-controls {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.view-button {
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 10px 16px;
+    background: var(--surface);
+    color: var(--ink-2);
+    font-size: 13.5px;
+    font-weight: 700;
+    transition: background .15s, border-color .15s;
+}
+
+.view-button:hover {
+    border-color: var(--border-strong);
+}
+
+.view-button.active {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--surface);
+}
+
+.day-view {
+    display: none;
+    margin-top: 4px;
+}
+
+.day-view.show {
+    display: block;
+}
+
+.calendar-view.hidden {
+    display: none;
+}
+
+.day-view-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(280px, .8fr);
+    gap: 20px;
+}
+
+.day-view-card,
+.important-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+}
+
+.day-view-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 18px;
+}
+
+.day-view-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--ink);
+    font-size: 28px;
+    letter-spacing: -.015em;
+}
+
+.day-view-subtitle {
+    color: var(--muted);
+    font-size: 13.5px;
+    margin-top: 5px;
+}
+
+.day-nav {
+    display: flex;
+    gap: 6px;
+}
+
+.day-nav button {
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--ink-2);
+    border-radius: 999px;
+    padding: 8px 13px;
+    font-weight: 800;
+}
+
+.day-nav button:hover {
+    border-color: var(--border-strong);
+}
+
+.day-view-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+
+.day-view-task {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    margin-bottom: 8px;
+    border-left: 4px solid var(--accent);
+}
+
+.day-view-task input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent);
+}
+
+.day-view-task span {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.day-view-task.completed span {
+    text-decoration: line-through;
+    color: var(--muted);
+}
+
+
+/* =====================================================
+   AUJOURD'HUI + JOURS IMPORTANTS (BANDEAU)
+===================================================== */
+
+.planning-highlights {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+    margin-bottom: 26px;
+}
+
+.today-summary-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    min-height: 70px;
+    transition: border-color .15s, transform .15s;
+}
+
+.today-summary-item:hover {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+}
+
+.today-summary-icon {
+    font-size: 18px;
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: var(--accent-soft);
+}
+
+.today-summary-date {
+    font-weight: 800;
+    color: var(--accent-ink);
+    font-size: 11.5px;
+    letter-spacing: .04em;
+}
+
+.today-summary-title {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--ink);
+    margin-top: 2px;
+}
+
+.today-summary-tasks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 6px;
+}
+
+.today-summary-task {
+    font-size: 10.5px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    color: white;
+    font-weight: 700;
+    max-width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.today-summary-empty {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.important-days-summary {
+    display: contents;
+}
+
+.important-summary-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 16px;
+    background: var(--gold-soft);
+    border: 1px solid var(--gold-border);
+    cursor: pointer;
+    transition: border-color .15s, transform .15s;
+}
+
+.important-summary-item > span {
+    font-size: 16px;
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--gold) 14%, transparent);
+}
+
+.important-summary-item:hover {
+    border-color: var(--gold);
+    transform: translateY(-1px);
+}
+
+.important-summary-date {
+    font-weight: 800;
+    color: var(--gold);
+    font-size: 11.5px;
+    letter-spacing: .04em;
+}
+
+.important-summary-title {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--gold-ink);
+    margin-top: 2px;
+}
+
+.important-day {
+    background: var(--gold-soft) !important;
+    border-color: var(--gold-border) !important;
+}
+
+.important-day .day-number {
+    color: var(--gold);
+}
+
+.important-star {
+    position: absolute;
+    top: 5px;
+    right: 6px;
+    font-size: 12px;
+}
+
+.important-editor {
+    margin-bottom: 18px;
+    padding: 14px 16px;
+    background: var(--gold-soft);
+    border-radius: 14px;
+    border: 1px solid var(--gold-border);
+}
+
+.important-editor-label {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--gold-ink);
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.important-editor input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--gold);
+}
+
+.important-title-input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--gold-border);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    color: var(--ink);
+    outline: none;
+}
+
+.important-title-input:focus {
+    border-color: var(--gold);
+}
+
+.important-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.important-list h3 {
+    margin: 0 0 8px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--ink);
+    font-size: 20px;
+}
+
+.important-list-item {
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: var(--gold-soft);
+    border: 1px solid var(--gold-border);
+    cursor: pointer;
+    transition: border-color .15s;
+}
+
+.important-list-item:hover {
+    border-color: var(--gold);
+}
+
+.important-list-item-date {
+    font-size: 11.5px;
+    font-weight: 800;
+    color: var(--gold);
+    margin-bottom: 3px;
+}
+
+.important-list-item-title {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--gold-ink);
+}
+
+
+/* =====================================================
+   TÂCHE SUR PLUSIEURS JOURS
+===================================================== */
+
+.multi-day-box {
+    margin-top: 10px;
+    padding: 12px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.multi-day-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink-2);
+}
+
+.multi-day-check input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent);
+}
+
+.multi-day-options {
+    display: none;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.multi-day-options.show {
+    display: grid;
+}
+
+.multi-day-help {
+    margin: 7px 0 0 26px;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+
+/* =====================================================
+   MODE SOMBRE — détails
+===================================================== */
+
+body.dark .day.outside {
+    opacity: .4;
+}
+
+body.dark input[type="date"],
+body.dark input[type="time"] {
+    color-scheme: dark;
+}
+
+body.dark .view-button.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width: 1100px) {
+
+    .months {
+        grid-template-columns: repeat(2, minmax(300px, 1fr));
+    }
+
+    .trip-cedar {
+        display: none;
+    }
+}
+
+@media(max-width: 800px) {
+
+    .day-view-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width: 700px) {
+
+    header {
+        padding: 0 16px;
+    }
+
+    .logo {
+        font-size: 18px;
+        white-space: nowrap;
+    }
+
+    header .view-controls {
+        flex-wrap: nowrap;
+        gap: 6px;
+    }
+
+    .settings-button {
+        padding: 7px 10px;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+    main {
+        padding: 24px 16px 40px;
+    }
+
+    .page-title h1 {
+        font-size: 34px;
+    }
+
+    .months {
+        grid-template-columns: 1fr;
+    }
+
+    .tracking-dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .page-header {
+        align-items: flex-start;
+        gap: 15px;
+        flex-direction: column;
+    }
+
+    .category-form {
+        flex-wrap: wrap;
+    }
+
+    .category-form input[type="text"] {
+        width: 100%;
+        flex: none;
+    }
+
+    .trip-card {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 24px 20px;
+    }
+
+    .trip-main {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .trip-text {
+        border-left: none;
+        padding-left: 0;
+    }
+
+    .trip-count-number {
+        font-size: 52px;
+    }
+}
 
     </style>
 
@@ -2126,6 +1876,17 @@
         </div>
 
     </div>
+
+
+
+    <!-- =================================================
+         VOYAGE AU LIBAN — COMPTE À REBOURS
+    ================================================== -->
+
+    <div
+        id="tripCountdown"
+        class="trip-card"
+    ></div>
 
 
 
@@ -2615,6 +2376,74 @@
 
 
 <!-- =====================================================
+     VOYAGE MODAL
+===================================================== -->
+
+<div
+    id="tripOverlay"
+    class="overlay"
+>
+
+    <div class="modal" style="width:min(460px, 92vw)">
+
+        <div class="modal-header">
+
+            <h2>
+                ✈️ Mon voyage
+            </h2>
+
+            <button
+                class="close"
+                onclick="closeTripSettings()"
+            >
+                ×
+            </button>
+
+        </div>
+
+        <div class="form-group">
+            <label>Destination / nom du voyage</label>
+            <input
+                id="tripTitleInput"
+                type="text"
+                placeholder="Ex : Voyage au Liban"
+            >
+        </div>
+
+        <div class="form-group">
+            <label>Date du départ</label>
+            <input
+                id="tripDateInput"
+                type="date"
+            >
+        </div>
+
+        <div class="trip-modal-actions">
+
+            <button
+                id="tripRemoveButton"
+                class="trip-remove"
+                onclick="removeTrip()"
+            >
+                Supprimer
+            </button>
+
+            <button
+                class="add-button"
+                onclick="saveTrip()"
+            >
+                Enregistrer
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
      SETTINGS MODAL
 ===================================================== -->
 
@@ -3004,6 +2833,14 @@ function loadData() {
 
     }
 
+
+    if(data.trip === undefined) {
+        data.trip = {
+            title: "Voyage au Liban",
+            date: ""
+        };
+    }
+
 }
 
 
@@ -3231,6 +3068,7 @@ function renderCalendar() {
     updateTracking();
     renderTodaySummary();
     renderImportantDaysSummary();
+    renderTripCountdown();
 
     if(document.getElementById("dayView").classList.contains("show")) {
         renderDayView(document.getElementById("dayView").dataset.date || getTodayKey());
@@ -3526,6 +3364,23 @@ function createMonth(
         }
 
 
+        /* AUJOURD'HUI */
+
+        if(key === dateKey(new Date())) {
+            day.classList.add("today");
+        }
+
+
+        /* JOUR DU VOYAGE */
+
+        const isTripDay =
+            data.trip && data.trip.date === key;
+
+        if(isTripDay) {
+            day.classList.add("trip-day");
+        }
+
+
         /* NUMÉRO */
 
         const numberElement =
@@ -3553,6 +3408,16 @@ function createMonth(
             star.className = "important-star";
             star.innerText = "⭐";
             day.appendChild(star);
+
+        }
+
+
+        if(isTripDay) {
+
+            const tripMarker = document.createElement("div");
+            tripMarker.className = "trip-marker";
+            tripMarker.innerText = "✈️ Départ";
+            day.appendChild(tripMarker);
 
         }
 
@@ -6951,6 +6816,130 @@ function toggleDayViewCompletion(key, checked) {
 
 
 /* =====================================================
+   VOYAGE — COMPTE À REBOURS
+===================================================== */
+
+const CEDAR_SVG = `
+<svg class="trip-cedar" viewBox="0 0 100 100" aria-hidden="true">
+    <path fill="#fff" d="M50 6 L62 20 H56 L74 36 H62 L84 54 H66 L94 74 H54 V94 H46 V74 H6 L34 54 H16 L38 36 H26 L44 20 H38 Z"/>
+</svg>`;
+
+function daysUntil(key) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const target = dateFromKey(key);
+    return Math.round((target - today) / 86400000);
+}
+
+function renderTripCountdown() {
+    const container = document.getElementById("tripCountdown");
+    if(!container) return;
+
+    const trip = data.trip || {};
+    const title = escapeHTML(trip.title || "Mon voyage");
+
+    if(!trip.date) {
+        container.className = "trip-card trip-empty";
+        container.innerHTML = `
+            <div class="trip-main">
+                <div class="trip-text">
+                    <div class="trip-kicker">✈️ Compte à rebours</div>
+                    <div class="trip-title">${title}</div>
+                    <div class="trip-date">Ajoute la date de départ pour voir combien de jours il reste.</div>
+                </div>
+            </div>
+            <button class="trip-edit" onclick="openTripSettings()">+ Ajouter la date</button>
+        `;
+        return;
+    }
+
+    const days = daysUntil(trip.date);
+    const date = dateFromKey(trip.date);
+
+    let countHTML;
+    if(days > 0) {
+        countHTML = `
+            <span class="trip-count-number">${days}</span>
+            <span class="trip-count-unit">${days > 1 ? "jours" : "jour"}</span>`;
+    } else if(days === 0) {
+        countHTML = `<span class="trip-count-number">Jour J ✈️</span>`;
+    } else {
+        countHTML = `<span class="trip-count-number">✓</span><span class="trip-count-unit">il y a ${-days} j</span>`;
+    }
+
+    container.className = "trip-card";
+    container.innerHTML = `
+        ${CEDAR_SVG}
+        <div class="trip-main">
+            <div class="trip-count">${countHTML}</div>
+            <div class="trip-text">
+                <div class="trip-kicker">${days > 0 ? "Avant le départ" : "Voyage"}</div>
+                <div class="trip-title">${title}</div>
+                <div class="trip-date">${capitalize(formatDate(date))}</div>
+            </div>
+        </div>
+        <button class="trip-edit" onclick="openTripSettings()">✏️ Modifier</button>
+    `;
+}
+
+function openTripSettings() {
+    const trip = data.trip || {};
+    document.getElementById("tripTitleInput").value = trip.title || "Voyage au Liban";
+    document.getElementById("tripDateInput").value = trip.date || "";
+    document.getElementById("tripRemoveButton").style.display = trip.date ? "" : "none";
+    document.getElementById("tripOverlay").classList.add("open");
+}
+
+function closeTripSettings() {
+    const overlay = document.getElementById("tripOverlay");
+    if(overlay) overlay.classList.remove("open");
+}
+
+function saveTrip() {
+    const title = document.getElementById("tripTitleInput").value.trim();
+    const date = document.getElementById("tripDateInput").value;
+
+    if(!date) {
+        alert("Choisis une date de départ.");
+        return;
+    }
+
+    data.trip = {
+        title: title || "Mon voyage",
+        date: date
+    };
+
+    saveData();
+    closeTripSettings();
+    renderCalendar();
+}
+
+function removeTrip() {
+    if(!confirm("Supprimer la date du voyage ?")) return;
+
+    data.trip = {
+        title: (data.trip && data.trip.title) || "Voyage au Liban",
+        date: ""
+    };
+
+    saveData();
+    closeTripSettings();
+    renderCalendar();
+}
+
+document.getElementById(
+    "tripOverlay"
+).addEventListener(
+    "click",
+    event => {
+        if(event.target.id === "tripOverlay") {
+            closeTripSettings();
+        }
+    }
+);
+
+
+/* =====================================================
    MODE SOMBRE
 ===================================================== */
 
@@ -7048,6 +7037,7 @@ document.addEventListener(
 
 
         if(event.key === "Escape") {
+            closeTripSettings();
 
 
             closeTaskModal();
