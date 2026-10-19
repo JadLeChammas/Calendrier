@@ -6831,6 +6831,33 @@ function daysUntil(key) {
     return Math.round((target - today) / 86400000);
 }
 
+/*
+   Jours "de travail" restants avant le départ :
+   comme le compteur "Jours", on ne compte pas
+   les week-ends, les jours fériés ni les journées
+   déjà marquées comme terminées.
+*/
+function workingDaysUntil(key) {
+    const holidayDates = getHolidayDates();
+    const current = new Date();
+    current.setHours(0, 0, 0, 0);
+    const target = dateFromKey(key);
+    let count = 0;
+
+    while(current < target) {
+        const k = dateKey(current);
+        const isWeekend = current.getDay() === 0 || current.getDay() === 6;
+
+        if(!isWeekend && !holidayDates.has(k) && !data.completedDays[k]) {
+            count++;
+        }
+
+        current.setDate(current.getDate() + 1);
+    }
+
+    return count;
+}
+
 function renderTripCountdown() {
     const container = document.getElementById("tripCountdown");
     if(!container) return;
@@ -6854,13 +6881,14 @@ function renderTripCountdown() {
     }
 
     const days = daysUntil(trip.date);
+    const workDays = workingDaysUntil(trip.date);
     const date = dateFromKey(trip.date);
 
     let countHTML;
     if(days > 0) {
         countHTML = `
-            <span class="trip-count-number">${days}</span>
-            <span class="trip-count-unit">${days > 1 ? "jours" : "jour"}</span>`;
+            <span class="trip-count-number">${workDays}</span>
+            <span class="trip-count-unit">${workDays > 1 ? "jours" : "jour"}</span>`;
     } else if(days === 0) {
         countHTML = `<span class="trip-count-number">Jour J ✈️</span>`;
     } else {
@@ -6873,9 +6901,9 @@ function renderTripCountdown() {
         <div class="trip-main">
             <div class="trip-count">${countHTML}</div>
             <div class="trip-text">
-                <div class="trip-kicker">${days > 0 ? "Avant le départ" : "Voyage"}</div>
+                <div class="trip-kicker">${days > 0 ? "Jours restants avant le départ" : "Voyage"}</div>
                 <div class="trip-title">${title}</div>
-                <div class="trip-date">${capitalize(formatDate(date))}</div>
+                <div class="trip-date">${capitalize(formatDate(date))}${days > 0 ? ` · ${days} jour${days > 1 ? "s" : ""} au total, week-ends et fériés compris` : ""}</div>
             </div>
         </div>
         <button class="trip-edit" onclick="openTripSettings()">✏️ Modifier</button>
